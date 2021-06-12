@@ -92,6 +92,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2455494863224074381, guid: a5afbd720e1158a4c9fb89e69151a70c, type: 3}
+      propertyPath: Type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4412714214570061667, guid: a5afbd720e1158a4c9fb89e69151a70c, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 0

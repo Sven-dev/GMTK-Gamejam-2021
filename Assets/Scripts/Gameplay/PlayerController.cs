@@ -121,15 +121,8 @@ public class PlayerController : MonoBehaviour
 
             CC.Move(move * fSpeed * Time.deltaTime);
 
-            if(ModelObject != null && draggedPlug == null)
+            if(ModelObject != null)
                 ModelObject.transform.rotation = Quaternion.LookRotation(move);
-        }
-
-        if (draggedPlug != null)
-        {
-            ModelObject.transform.LookAt(draggedPlug.position);
-            ModelObject.transform.localEulerAngles =
-                new Vector3(0.0f, ModelObject.transform.localEulerAngles.y, 0.0f);
         }
 
         if (velocityG.magnitude > 0.0f) CC.Move(velocityG * Time.deltaTime);
@@ -160,11 +153,12 @@ public class PlayerController : MonoBehaviour
             // Add also Polish here, like animations
             if (draggedPlug != null)
             {
-                draggedPlug.constraints = RigidbodyConstraints.FreezeAll;
-                draggedPlug.position = socket.position;
-                draggedPlug.transform.parent = socket;
-
-                s.Plugged = true;
+                Plug plig = draggedPlug.GetComponent<Plug>();
+                if (plig != null)
+                {
+                    plig.Disconnect();
+                    draggedPlug.constraints = RigidbodyConstraints.None;
+                }
             }
             else
             {
@@ -177,7 +171,6 @@ public class PlayerController : MonoBehaviour
         if (draggedPlug != null)
         {
             PlugDetector.PlugCable(draggedPlug);
-
             draggedPlug = null;
 
             // Add also Polish here, like animations
@@ -197,7 +190,11 @@ public class PlayerController : MonoBehaviour
 
                 if (direction.magnitude > 0.4f)
                 {
-                   // Grab_End();
+                    ModelObject.transform.LookAt(draggedPlug.position);
+                    ModelObject.transform.localEulerAngles =
+                        new Vector3(0.0f, ModelObject.transform.localEulerAngles.y, 0.0f);
+
+                    // Grab_End();
                     CC.Move(-direction * fSpeed * 10 * direction.magnitude * Time.deltaTime);
                 }
             }

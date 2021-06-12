@@ -16,8 +16,6 @@ public class PlugDetector : MonoBehaviour
 
         if (other.tag == "Socket")
         {
-            Debug.Log(other.name);
-
             Sockets.Add(other.transform);
         }
     }
@@ -53,9 +51,6 @@ public class PlugDetector : MonoBehaviour
         {
             Transform socket = GetClosestItem(Sockets);
             Socket s = socket.GetComponent<Socket>();
-
-            print(s == null);
-            print(socket.name);
 
             if (!s.Plugged)
             {

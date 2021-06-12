@@ -4,38 +4,20 @@ using UnityEngine;
 
 public class Socket : MonoBehaviour
 {
-    [SerializeField] SocketType Type;
+    [SerializeField] public SocketType Type;
     [SerializeField] Transform Hole;
-    [SerializeField] Transform Plug;
+    [SerializeField] Transform PlugTr;
     [Space]
     [SerializeField] List<Powerable> Powers = new List<Powerable>();
 
-    [SerializeField] bool Powerup;
-    [SerializeField] bool Powerdown;
-
     public bool Plugged;
-
-    private void Update()
-    {
-        if (Powerup)
-        {
-            ConnectPlug(transform);
-            Powerup = false;
-        }
-
-        if (Powerdown)
-        {
-            PullPlug();
-            Powerdown = false;
-        }
-    }
 
     public void ConnectPlug(Transform plug)
     {
-        Plug = plug;
+        PlugTr = plug;
 
-        plug.parent = Hole;
-        plug.transform.position = Hole.position;
+        //plug.parent = Hole;
+        plug.transform.position = transform.position;
 
         foreach(Powerable powerable in Powers)
         {
@@ -47,10 +29,10 @@ public class Socket : MonoBehaviour
 
     public void PullPlug()
     {
-        if (Plug != null)
+        if (PlugTr != null)
         {
-            Plug.parent = null;
-            Plug = null;
+            // PlugTr.parent = null;
+            PlugTr = null;
         }
 
         foreach (Powerable powerable in Powers)
