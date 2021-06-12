@@ -78,21 +78,15 @@ public class PlayerController : MonoBehaviour
         if (Grounded()) velocityG = Vector3.zero;
         else velocityG.y -= fGravity * Time.deltaTime;
 
-        if(velocityG.y <= -20)
-        {
-            CC.enabled = false;
-
-            //reset the char
-            transform.position = new Vector3(0.0f, 5.0f, 0.0f);
-            velocityG = Vector3.zero;
-        }
-
-        if(CC != null) Movement();
+        if (CC != null) Movement();
+        if (draggedPlug != null) Grabbing();
     }
 
     #endregion
 
     #region Button Call Functions
+
+    [SerializeField] GameObject ModelObject = null;
 
     Vector3 velocityG = Vector3.zero;
 
@@ -127,7 +121,15 @@ public class PlayerController : MonoBehaviour
 
             CC.Move(move * fSpeed * Time.deltaTime);
 
-            transform.rotation = Quaternion.LookRotation(move);
+            if(ModelObject != null && draggedPlug == null)
+                ModelObject.transform.rotation = Quaternion.LookRotation(move);
+        }
+
+        if (draggedPlug != null)
+        {
+            ModelObject.transform.LookAt(draggedPlug.position);
+            ModelObject.transform.localEulerAngles =
+                new Vector3(0.0f, ModelObject.transform.localEulerAngles.y, 0.0f);
         }
 
         if (velocityG.magnitude > 0.0f) CC.Move(velocityG * Time.deltaTime);
@@ -142,16 +144,61 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    #region Plug Variables
+
+    [SerializeField] PlugDetector PlugDetector;
+    Rigidbody draggedPlug = null;
+
+    #endregion
+
     private void Grab_Start()
     {
-        Debug.Log("You started Grabbing!");
-        Grab();
-    }
+        if (PlugDetector != null)
+        {
+            draggedPlug = PlugDetector.GrabPlug();
 
+            // Add also Polish here, like animations
+            if (draggedPlug != null)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+    }
     private void Grab_End()
     {
-        Debug.Log("You stopped Grabbing!");
-        Ungrab();
+        if (draggedPlug != null)
+        {
+            draggedPlug = null;
+
+            // Add also Polish here, like animations
+        }
+    }
+
+    private void Grabbing()
+    {
+        if (draggedPlug != null)
+        {
+            Vector3 direction = (transform.position + ModelObject.transform.up * 0.15f + ModelObject.transform.forward * 0.15f - draggedPlug.position);
+
+            if (direction.magnitude > 0.01f)
+            {
+                Vector3 force = direction * 500;
+                if (draggedPlug != null)
+                {
+                    draggedPlug.velocity = force;
+                }
+
+                if (direction.magnitude > 0.4f)
+                {
+                   // Grab_End();
+                    CC.Move(-direction * fSpeed * 10 * direction.magnitude * Time.deltaTime);
+                }
+            }
+        }
     }
 
     #region UI Related
@@ -191,24 +238,10 @@ public class PlayerController : MonoBehaviour
     #endregion
     #region Private Extra Functions
 
-    [SerializeField] PlugDetector PlugDetector;
-
-    private void Grab()
-    {
-        // Activate a Casting Sphere, that touches colliders
-        PlugDetector.GrabPlug();
-    }
-
-    private void Ungrab()
-    {
-
-    }
-
     private bool Grounded()
     {
-        float distance = 0.1f;
-
-        if (Physics.CheckSphere(transform.position, distance, groundMask))
+        Vector3 halfExtend = new Vector3(0.15f, 0.1f, 0.15f);
+        if (Physics.CheckBox(transform.position, halfExtend, transform.rotation, groundMask))
         {
             return true;
         }
