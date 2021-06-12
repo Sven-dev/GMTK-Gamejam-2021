@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!CC.enabled) CC.enabled = true;
+        if(CC != null && !CC.enabled) CC.enabled = true;
 
         if (Grounded()) velocityG = Vector3.zero;
         else velocityG.y -= fGravity * Time.deltaTime;
@@ -225,7 +225,14 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    
+    public void PlayerReset()
+    {
+        CC.enabled = false;
 
+        transform.position = Vector3.up * 5;
+        velocityG = Vector3.zero;
+    }
     public bool AreFalling()
     {
         if (velocityG.y < 0.0f)
