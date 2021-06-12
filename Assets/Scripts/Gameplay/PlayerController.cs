@@ -73,9 +73,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!CC.enabled) CC.enabled = true;
+
         if (Grounded()) velocityG = Vector3.zero;
         else velocityG.y -= fGravity * Time.deltaTime;
 
+        if(velocityG.y <= -10)
+        {
+            CC.enabled = false;
+
+            //reset the char
+            transform.position = new Vector3(0.0f, 5.0f, 0.0f);
+            velocityG = Vector3.zero;
+        }
 
         if(CC != null) Movement();
     }
@@ -85,7 +95,7 @@ public class PlayerController : MonoBehaviour
     #region Button Call Functions
 
     Vector3 velocityG = Vector3.zero;
-    float fSpeed = 8.0f;
+    float fSpeed = 5.0f;
 
     private void SetButtonCalls()
     {
@@ -125,7 +135,7 @@ public class PlayerController : MonoBehaviour
     {
         if (CC != null && Grounded())
         {
-            velocityG.y = 8.0f;
+            velocityG.y = 6.0f;
             CC.Move(velocityG * Time.deltaTime);
         }
     }
@@ -133,6 +143,7 @@ public class PlayerController : MonoBehaviour
     private void Grab_Start()
     {
         Debug.Log("You started Grabbing!");
+        Grab();
     }
 
     private void Grab_End()
@@ -167,7 +178,7 @@ public class PlayerController : MonoBehaviour
 
     public bool AreFalling()
     {
-        if (true)
+        if (velocityG.y < 0.0f)
         {
             return true;
         }
@@ -177,6 +188,12 @@ public class PlayerController : MonoBehaviour
     #endregion
     #region Private Extra Functions
 
+    private void Grab()
+    {
+        // Activate a Casting Sphere, that touches colliders
+
+
+    }
     private bool Grounded()
     {
         float distance = 0.1f;
