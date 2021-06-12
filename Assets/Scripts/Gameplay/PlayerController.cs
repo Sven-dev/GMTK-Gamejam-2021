@@ -95,7 +95,9 @@ public class PlayerController : MonoBehaviour
     #region Button Call Functions
 
     Vector3 velocityG = Vector3.zero;
-    float fSpeed = 5.0f;
+
+    [SerializeField] float fSpeed = 2.0f;
+    [SerializeField] float fJumpStrength = 3.5f;
 
     private void SetButtonCalls()
     {
@@ -135,7 +137,7 @@ public class PlayerController : MonoBehaviour
     {
         if (CC != null && Grounded())
         {
-            velocityG.y = 6.0f;
+            velocityG.y = fJumpStrength;
             CC.Move(velocityG * Time.deltaTime);
         }
     }

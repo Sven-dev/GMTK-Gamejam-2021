@@ -146,8 +146,8 @@ public class TerrainGenerator : MonoBehaviour
         if (tileMap == null && TileSize != null && TileSize.magnitude > 0)
         {
             tileMap = new TileSet[TileSize.x, TileSize.y];
-           
-            transform.position = new Vector3(- TileSize.x / 2, 0, -TileSize.y / 2);
+
+            tilesParent.position = new Vector3(- TileSize.x / 2, 0, -TileSize.y / 2);
 
             for (int y = 0; y < TileSize.y; y++)
                 for (int x = 0; x < TileSize.x; x++)
