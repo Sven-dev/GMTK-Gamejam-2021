@@ -4,25 +4,44 @@ using UnityEngine;
 
 public class PoweredDoor : Powerable
 {
+    [SerializeField] private Transform door;
+    [Space]
+    [SerializeField] private Transform opened;
+    [SerializeField] private Transform closed;
+
+    private IEnumerator coroutine;
+    
     public override void PowerUp()
     {
-        print("Power up");
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+
+        coroutine = _ToggleDoor(closed, opened);
+        StartCoroutine(coroutine);
     }
 
     public override void PowerDown()
     {
-        print("Power down");
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+
+        coroutine = _ToggleDoor(opened, closed);
+        StartCoroutine(coroutine);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    IEnumerator _ToggleDoor(Transform from, Transform to)
     {
-        
-    }
+        float progress = 0;
+        while (progress < 1)
+        {
+            door.position = Vector3.Lerp(from.position, to.position, progress);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            progress += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
     }
 }
