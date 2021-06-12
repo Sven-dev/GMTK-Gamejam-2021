@@ -43,9 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555f90a401589024ea99f0842a6779d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jointPrefab: {fileID: 4548414403385036058, guid: 3f119d16906f752478005bb418e5d7ca, type: 3}
+  connectorPrefab: {fileID: 8001070217334569586, guid: 05f690529a0760f45912e0dc445c57c4, type: 3}
+  jointPrefab: {fileID: 4715410859769577904, guid: 3f119d16906f752478005bb418e5d7ca, type: 3}
   parent: {fileID: 8361512402298573496}
-  length: 2
-  jointDistance: 0.19
-  snapFirst: 0
-  snapLast: 1
+  length: 3
+  jointDistance: 0.21

@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class CableSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject jointPrefab;
+    [SerializeField] private CharacterJoint connectorPrefab;
+    [SerializeField] private CharacterJoint jointPrefab;
     [SerializeField] private Transform parent;
     [Space]
     [SerializeField] [Range(1, 1000)] private int length = 1;
     [Space]
     [SerializeField] private float jointDistance = 0.15f;
-    [Space]
-    [SerializeField] private bool snapFirst;
-    [SerializeField] private bool snapLast;
 
     // Start is called before the first frame update
     void Start()
@@ -24,36 +22,42 @@ public class CableSpawner : MonoBehaviour
     {
         int count = (int)(length / jointDistance);
 
+        //spawn first connector (no character joint)
+        Rigidbody connectorA = Instantiate(
+            connectorPrefab,
+            transform.position + (Vector3.up * jointDistance),
+            Quaternion.identity,
+            parent).GetComponent<Rigidbody>();
+        Destroy(connectorA.GetComponent<CharacterJoint>());
+
+        //Spawn cables
+        Rigidbody previousJoint = null;
         for (int x = 0; x < count; x++)
         {
-            GameObject temp = Instantiate(
-                jointPrefab, 
-                new Vector3(transform.position.x,transform.position.y + jointDistance * (x - 1), transform.position.z), 
+            CharacterJoint joint = Instantiate(
+                jointPrefab,
+                transform.position + (Vector3.up * jointDistance * (x + 1)), 
                 Quaternion.identity,
                 parent);
 
-            temp.transform.eulerAngles = new Vector3(180, 0, 0);
-            temp.name = parent.childCount.ToString();
+            joint.transform.eulerAngles = new Vector3(180, 0, 0);
+            joint.name = parent.childCount.ToString();
 
             if (x == 0)
             {
-                Destroy(temp.GetComponent<CharacterJoint>());
-
-                if (snapFirst)
-                {
-                    temp.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                    Destroy(temp.GetComponent<Collider>());
-                }
+                joint.connectedBody = connectorA;
             }
             else
             {
-                temp.GetComponent<CharacterJoint>().connectedBody = parent.Find((parent.childCount -1).ToString()).GetComponent<Rigidbody>();
+                joint.connectedBody = previousJoint;
             }
+
+            previousJoint = joint.GetComponent<Rigidbody>();
         }
 
-        if (snapLast)
-        {
-            parent.Find((parent.childCount).ToString()).GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        }
+        //Spawn last connector (with character joint)
+        CharacterJoint connectorB = Instantiate(connectorPrefab, transform.position + (Vector3.up * jointDistance * (count +1)), Quaternion.identity, parent);
+        connectorB.transform.Rotate(Vector3.up * 180);
+        connectorB.connectedBody = previousJoint;
     }
 }
