@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RopeJoint
   - Plug
+  - Socket
   layers:
   - Default
   - TransparentFX

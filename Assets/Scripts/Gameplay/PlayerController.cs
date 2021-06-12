@@ -160,7 +160,11 @@ public class PlayerController : MonoBehaviour
             // Add also Polish here, like animations
             if (draggedPlug != null)
             {
+                draggedPlug.constraints = RigidbodyConstraints.FreezeAll;
+                draggedPlug.position = socket.position;
+                draggedPlug.transform.parent = socket;
 
+                s.Plugged = true;
             }
             else
             {
@@ -172,6 +176,8 @@ public class PlayerController : MonoBehaviour
     {
         if (draggedPlug != null)
         {
+            PlugDetector.PlugCable(draggedPlug);
+
             draggedPlug = null;
 
             // Add also Polish here, like animations
@@ -187,10 +193,7 @@ public class PlayerController : MonoBehaviour
             if (direction.magnitude > 0.01f)
             {
                 Vector3 force = direction * 500;
-                if (draggedPlug != null)
-                {
-                    draggedPlug.velocity = force;
-                }
+                draggedPlug.velocity = force;
 
                 if (direction.magnitude > 0.4f)
                 {

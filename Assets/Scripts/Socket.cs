@@ -7,12 +7,13 @@ public class Socket : MonoBehaviour
     [SerializeField] SocketType Type;
     [SerializeField] Transform Hole;
     [SerializeField] Transform Plug;
-    [SerializeField] bool Plugged;
     [Space]
     [SerializeField] List<Powerable> Powers = new List<Powerable>();
 
     [SerializeField] bool Powerup;
     [SerializeField] bool Powerdown;
+
+    public bool Plugged;
 
     private void Update()
     {
