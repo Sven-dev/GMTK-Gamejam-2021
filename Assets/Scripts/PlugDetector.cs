@@ -11,7 +11,6 @@ public class PlugDetector : MonoBehaviour
         if (other.tag == "Plug")
         {
             Plugs.Add(other.transform);
-            print("plug detected");
         }
     }
 
@@ -20,19 +19,19 @@ public class PlugDetector : MonoBehaviour
         if (other.tag == "Plug")
         {
             Plugs.Remove(other.transform);
-            print("plug removed");
         }
     }
 
     //Grab the nearest cable plug, if there's one in range
-    public void GrabPlug()
+    public Rigidbody GrabPlug()
     {
-        if (Plugs.Count != 0)
+        Rigidbody plugRb = null;
+        if (Plugs.Count > 0)
         {
-            Transform Plug = GetClosestPlug();
-
-
+            Transform plugTr = GetClosestPlug();
+            plugRb = plugTr.GetComponent<Rigidbody>();
         }
+        return plugRb;
     }
 
     private Transform GetClosestPlug()
