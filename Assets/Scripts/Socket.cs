@@ -46,8 +46,11 @@ public class Socket : MonoBehaviour
 
     public void PullPlug()
     {
-        Plug.parent = null;
-        Plug = null;
+        if (Plug != null)
+        {
+            Plug.parent = null;
+            Plug = null;
+        }
 
         foreach (Powerable powerable in Powers)
         {
