@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2934182809091342535}
   m_Layer: 0
-  m_Name: Open
+  m_Name: Closed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2934182809091342534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.984, y: 1.428, z: -0.175}
+  m_LocalPosition: {x: -0.015999973, y: 0.45, z: -0.175}
   m_LocalScale: {x: 0.8, y: 1, z: 0.01}
   m_Children: []
   m_Father: {fileID: 2934182809578487935}
@@ -78,8 +78,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 2934182810518420147}
-  opened: {fileID: 2934182809091342535}
-  closed: {fileID: 2934182810897532292}
+  opened: {fileID: 2934182810897532292}
+  closed: {fileID: 2934182809091342535}
 --- !u!1 &2934182810518420146
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2934182810518420146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.984, y: 1.428, z: -0.175}
+  m_LocalPosition: {x: -0.015999973, y: 0.45, z: -0.175}
   m_LocalScale: {x: 0.8, y: 1, z: 0.01}
   m_Children: []
   m_Father: {fileID: 2934182809578487935}
@@ -185,7 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2934182810897532292}
   m_Layer: 0
-  m_Name: Closed
+  m_Name: Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,7 +199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2934182810897532299}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.984, y: 0.45, z: -0.175}
+  m_LocalPosition: {x: -0.015999973, y: -0.528, z: -0.175}
   m_LocalScale: {x: 0.8, y: 1, z: 0.01}
   m_Children: []
   m_Father: {fileID: 2934182809578487935}
@@ -222,11 +222,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a8924f2f53c959d4a8789aeb2ea0fee3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.9831426
+      value: -0.016857386
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a8924f2f53c959d4a8789aeb2ea0fee3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.97414327
+      value: -0.0038567185
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a8924f2f53c959d4a8789aeb2ea0fee3, type: 3}
       propertyPath: m_LocalPosition.z
