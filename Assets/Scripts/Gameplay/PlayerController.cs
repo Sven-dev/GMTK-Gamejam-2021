@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         if (Grounded()) velocityG = Vector3.zero;
         else velocityG.y -= fGravity * Time.deltaTime;
 
-        if(velocityG.y <= -10)
+        if(velocityG.y <= -20)
         {
             CC.enabled = false;
 

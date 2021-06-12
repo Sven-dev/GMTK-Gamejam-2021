@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public enum TileDirection
@@ -11,22 +12,23 @@ public enum TileDirection
 }
 public enum TileType
 {
-    Ground,
+    Ground,     
 
-    SideN,
-    SideE,
-    SideS,
-    SideW,
+    SideN,      
+    SideE,      
+    SideS,      
+    SideW,      
 
-    CornerN,
-    CornerE,
-    CornerS,
-    CornerW,
+    CornerN,    
+    CornerE,    
+    CornerS,    
+    CornerW,    
 
-    CornerNF,
-    CornerEF,
-    CornerSF,
-    CornerWF
+    CornerInN,
+    CornerInE,
+    CornerInS,
+    CornerInW
+
 }
 
 public class TileSet
@@ -109,16 +111,21 @@ public class TerrainGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateLevel(TileSize.x, TileSize.y);
+        LoadLevel(loadFile);
+        
     }
 
     #region Tileset Related
 
+    [SerializeField] TextAsset[] levelFiles = null;
+
+    [SerializeField] Transform tilesParent = null;
     [SerializeField] GameObject[] TileSet_Mesh = null;
-    [SerializeField] Vector2Int TileSize = Vector2Int.one;
+    [SerializeField] int loadFile = 0;
 
     public TileSet[,] tileMap { get; private set; }
-   // public Vector2 TileSize { get; private set; }
+    public Vector2Int TileSize { get; private set; }
+    private int[,] levelMap;
 
     public Vector3 GetTilePosition(int _Width, int _Height)
     {
@@ -134,24 +141,23 @@ public class TerrainGenerator : MonoBehaviour
         Debug.LogError("TileMap does not exist");
         return Vector3.zero;
     }
-    public void GenerateLevel(int _Width, int _Height)
+    public void GenerateLevel()
     {
-        if (tileMap == null && TileSet_Mesh != null && TileSet_Mesh.Length > 0)
+        if (tileMap == null && TileSize != null && TileSize.magnitude > 0)
         {
-            tileMap = new TileSet[_Width, _Height];
-           // TileSize = new Vector2Int(_Width, _Height);
+            tileMap = new TileSet[TileSize.x, TileSize.y];
+           
+            transform.position = new Vector3(- TileSize.x / 2, 0, -TileSize.y / 2);
 
-            transform.position = new Vector3(- _Width / 2, 0, - _Height / 2);
-
-            for (int y = 0; y < _Width; y++)
-                for (int x = 0; x < _Height; x++)
+            for (int y = 0; y < TileSize.y; y++)
+                for (int x = 0; x < TileSize.x; x++)
                 {
-                    tileMap[x, y] = GetTileType(TileType.Ground);
+                    tileMap[x, y] = GetTileType(CalculateType(x, y));
                     if (tileMap[x, y] != null)
                     {
-                        tileMap[x, y].SetParent(transform);
+                        tileMap[x, y].SetParent(tilesParent);
                         tileMap[x, y].SetPosition(new Vector2(x,y));
-                        tileMap[x, y].SetHeight(0);
+                        tileMap[x, y].SetHeight(levelMap[x,y] * 0.5f);
                     }
                 }
         }
@@ -177,14 +183,14 @@ public class TerrainGenerator : MonoBehaviour
             case TileType.CornerS:  tileID = 2;  tileDirection = TileDirection.South;   break;
             case TileType.CornerW:  tileID = 2;  tileDirection = TileDirection.West;    break;
 
-            case TileType.CornerNF: tileID = 2;  tileDirection = TileDirection.North; flip = true; break;
-            case TileType.CornerEF: tileID = 2;  tileDirection = TileDirection.East;  flip = true; break;
-            case TileType.CornerSF: tileID = 2;  tileDirection = TileDirection.South; flip = true; break;
-            case TileType.CornerWF: tileID = 2;  tileDirection = TileDirection.West;  flip = true; break;
+            case TileType.CornerInN: tileID = 3; tileDirection = TileDirection.North; break;
+            case TileType.CornerInS: tileID = 3; tileDirection = TileDirection.East;  break;
+            case TileType.CornerInE: tileID = 3; tileDirection = TileDirection.South; break;
+            case TileType.CornerInW: tileID = 3; tileDirection = TileDirection.West;  break;
+                                
             default:
                 break;
         }
-
 
         TileSet result = new TileSet(Instantiate(TileSet_Mesh[tileID]));
 
@@ -192,6 +198,86 @@ public class TerrainGenerator : MonoBehaviour
         result.SetFlipped(flip);
 
         return result;
+    }
+
+    private TileType CalculateType(int _Width, int _Height)
+    {
+        if (levelMap != null)
+        {
+            if (_Width > 0 && _Width < TileSize.x - 1 && _Height > 0 && _Height < TileSize.y - 1)
+            {
+                bool North = levelMap[_Width, _Height] <= levelMap[_Width, _Height + 1];
+                bool East  = levelMap[_Width, _Height] <= levelMap[_Width + 1, _Height];
+                bool South = levelMap[_Width, _Height] <= levelMap[_Width, _Height - 1];
+                bool West  = levelMap[_Width, _Height] <= levelMap[_Width - 1, _Height];
+
+                bool NorthEast = levelMap[_Width, _Height] <= levelMap[_Width + 1, _Height + 1];
+                bool NorthWest = levelMap[_Width, _Height] <= levelMap[_Width - 1, _Height + 1];
+                bool SouthEast = levelMap[_Width, _Height] <= levelMap[_Width + 1, _Height - 1];
+                bool SouthWest = levelMap[_Width, _Height] <= levelMap[_Width - 1, _Height - 1];
+
+                if (North && East && South && West)
+                {
+                    if (!NorthEast && NorthWest && SouthEast && SouthWest) return TileType.CornerInN;
+                    if (NorthEast && NorthWest && SouthEast && !SouthWest) return TileType.CornerInE;
+                    if (NorthEast && NorthWest && !SouthEast && SouthWest) return TileType.CornerInS;
+                    if (NorthEast && !NorthWest && SouthEast && SouthWest) return TileType.CornerInW;
+
+                    return TileType.Ground;
+                }
+
+                if (!North && East && South && West) return TileType.SideN;
+                if (North && !East && South && West) return TileType.SideE;
+                if (North && East && !South && West) return TileType.SideS;
+                if (North && East && South && !West) return TileType.SideW;
+
+                if (!North && !East && South && West) return TileType.CornerN;
+                if (North && !East && !South && West) return TileType.CornerE;
+                if (North && East && !South && !West) return TileType.CornerS;
+                if (!North && East && South && !West) return TileType.CornerW;
+
+            }
+        }
+
+        return TileType.Ground;
+    }
+
+    private void LoadLevel(int _level)
+    {
+
+        if (levelFiles != null && levelFiles.Length > _level && _level >= 0)
+        {
+            TextAsset textAsset = levelFiles[_level];
+
+            string textString = textAsset.text;
+            string[] textLines = textString.Split('\n');
+
+            if (textString.Length > 0 && textLines.Length > 0)
+            {
+                TileSize = new Vector2Int(textLines[0].Length, textLines.Length);
+                levelMap = new int[TileSize.x, TileSize.y];
+                int tileHeight = 0;
+
+                for (int i = 0; i < textLines.Length; i++)
+                {
+                    string valueLine = textLines[i];
+                    for (int c = 0; c < valueLine.Length; c++)
+                    {
+                        if (int.TryParse(valueLine[c].ToString(), out tileHeight))
+                        {
+                            levelMap[c, i] = tileHeight;
+                        }
+                        else
+                        {
+                            levelMap[c, i] = 0;
+                        }
+                    }
+                }
+
+                GenerateLevel();
+            }
+        }
+
     }
 
     #endregion
