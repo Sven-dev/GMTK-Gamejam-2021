@@ -6,7 +6,7 @@ public class PoweredPlatform : Powerable
 {
     [SerializeField] private float Speed = 1;
     [Space]
-    [SerializeField] private Transform Platform;
+    [SerializeField] private Rigidbody Platform;
     [Space]
     [SerializeField] private Transform Beginning;
     [SerializeField] private Transform End;
@@ -36,7 +36,7 @@ public class PoweredPlatform : Powerable
         {
             if (active)
             {
-                Platform.transform.position = Vector3.Lerp(Beginning.position, End.position, progress);
+                Platform.position = Vector3.Lerp(Beginning.position, End.position, progress);
 
                 progress += Time.fixedDeltaTime * Speed * sigma;
                 if (progress >= 1)
