@@ -4,29 +4,57 @@ using UnityEngine;
 
 public class Socket : MonoBehaviour
 {
-    [SerializeField] public SocketType Type;
-    [SerializeField] public Transform Hole;
+    [SerializeField] SocketType Type;
+    [SerializeField] Transform Hole;
+    [SerializeField] Transform Plug;
+    [SerializeField] bool Plugged;
+    [Space]
+    [SerializeField] List<Powerable> Powers = new List<Powerable>();
+
+    [SerializeField] bool Powerup;
+    [SerializeField] bool Powerdown;
+
+    private void Update()
+    {
+        if (Powerup)
+        {
+            ConnectPlug(transform);
+            Powerup = false;
+        }
+
+        if (Powerdown)
+        {
+            PullPlug();
+            Powerdown = false;
+        }
+    }
 
     public void ConnectPlug(Transform plug)
     {
-        Hole = plug;
+        Plug = plug;
+
+        plug.parent = Hole;
+        plug.transform.position = Hole.position;
+
+        foreach(Powerable powerable in Powers)
+        {
+            powerable.PowerUp();
+        }
+
+        Plugged = true;
     }
 
     public void PullPlug()
     {
-        Hole = null;
-    }
+        Plug.parent = null;
+        Plug = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        foreach (Powerable powerable in Powers)
+        {
+            powerable.PowerDown();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Plugged = false;
     }
 }
 

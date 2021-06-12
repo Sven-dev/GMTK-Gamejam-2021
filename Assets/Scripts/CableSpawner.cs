@@ -4,31 +4,24 @@ using UnityEngine;
 
 public class CableSpawner : MonoBehaviour
 {
+    [SerializeField] private Rigidbody socket;
     [SerializeField] private CharacterJoint connectorPrefab;
     [SerializeField] private CharacterJoint jointPrefab;
     [SerializeField] private Transform parent;
     [Space]
-    [SerializeField] [Range(1, 1000)] private int length = 1;
+    [SerializeField] [Range(1, 100)] private int length = 1;
     [Space]
     [SerializeField] private float jointDistance = 0.15f;
 
     // Start is called before the first frame update
     void Start()
     {
-        SpawnJoint();
+        SpawnJoints();
     }
 
-    public void SpawnJoint()
+    public void SpawnJoints()
     {
         int count = (int)(length / jointDistance);
-
-        //spawn first connector (no character joint)
-        Rigidbody connectorA = Instantiate(
-            connectorPrefab,
-            transform.position + (Vector3.up * jointDistance),
-            Quaternion.identity,
-            parent).GetComponent<Rigidbody>();
-        Destroy(connectorA.GetComponent<CharacterJoint>());
 
         //Spawn cables
         Rigidbody previousJoint = null;
@@ -45,7 +38,7 @@ public class CableSpawner : MonoBehaviour
 
             if (x == 0)
             {
-                joint.connectedBody = connectorA;
+                joint.connectedBody = socket;
             }
             else
             {
