@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4805009825882132034}
   - component: {fileID: 808541146253764891}
   - component: {fileID: 3761353360973356910}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Proto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7523138253743253115}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: '- Environment -'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
