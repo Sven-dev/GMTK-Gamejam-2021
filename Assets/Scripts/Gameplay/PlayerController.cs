@@ -149,6 +149,7 @@ public class PlayerController : MonoBehaviour
     private void Grab_End()
     {
         Debug.Log("You stopped Grabbing!");
+        Ungrab();
     }
 
     #region UI Related
@@ -188,12 +189,19 @@ public class PlayerController : MonoBehaviour
     #endregion
     #region Private Extra Functions
 
+    [SerializeField] PlugDetector PlugDetector;
+
     private void Grab()
     {
         // Activate a Casting Sphere, that touches colliders
+        PlugDetector.GrabCable();
+    }
 
+    private void Ungrab()
+    {
 
     }
+
     private bool Grounded()
     {
         float distance = 0.1f;

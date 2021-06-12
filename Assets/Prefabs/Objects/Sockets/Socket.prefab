@@ -45,3 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Hole: {fileID: 0}
+  Plug: {fileID: 0}
+  Plugged: 0
+  Powers: []
+  Powerup: 0
+  Powerdown: 0

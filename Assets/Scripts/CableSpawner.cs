@@ -49,7 +49,7 @@ public class CableSpawner : MonoBehaviour
         }
 
         //Spawn last connector (with character joint)
-        CharacterJoint connectorB = Instantiate(connectorPrefab, transform.position + (Vector3.up * jointDistance * (count +1)), Quaternion.identity, parent);
+        CharacterJoint connectorB = Instantiate(connectorPrefab, transform.position + (Vector3.up * jointDistance * (count + 0.5f)), Quaternion.identity, parent);
         connectorB.transform.Rotate(Vector3.up * 180);
         connectorB.connectedBody = previousJoint;
     }
