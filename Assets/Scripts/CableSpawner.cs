@@ -9,7 +9,7 @@ public class CableSpawner : MonoBehaviour
     [SerializeField] private CharacterJoint jointPrefab;
     [SerializeField] private Transform parent;
     [Space]
-    [SerializeField] [Range(1, 100)] private int length = 1;
+    [SerializeField] [Range(1, 10)] private int length = 1;
     [Space]
     [SerializeField] private float jointDistance = 0.15f;
 
