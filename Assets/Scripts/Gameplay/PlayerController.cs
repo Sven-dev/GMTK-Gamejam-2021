@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
     #region Instance
     //put instance stuff here
     private static PlayerController _Instance;
@@ -45,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
         inputControls = new GameplayControls();
 
+        CC = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
     private void OnDestroy()
     {
@@ -74,7 +77,7 @@ public class PlayerController : MonoBehaviour
         else velocityG.y -= fGravity * Time.deltaTime;
 
 
-        Movement();
+        if(CC != null) Movement();
     }
 
     #endregion
@@ -101,18 +104,18 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
+        Vector2 moveInput = inputControls.Player.Move.ReadValue<Vector2>();
 
-        Vector2 move = inputControls.Player.Move.ReadValue<Vector2>();
-
-        if (move.sqrMagnitude > 0.0f)
+        if (moveInput.sqrMagnitude > 0.0f)
         {
-            move.Normalize();
-            Debug.Log("You are Moving!");
+            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
 
             // Animation deactivate for now
-            // if (animator != null) animator.SetFloat("vSpeed", moveTo.magnitude);
+            if (animator != null) animator.SetFloat("vSpeed", move.magnitude);
 
             CC.Move(move * fSpeed * Time.deltaTime);
+
+            transform.rotation = Quaternion.LookRotation(move);
         }
 
         if (velocityG.magnitude > 0.0f) CC.Move(velocityG * Time.deltaTime);
@@ -120,7 +123,11 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        Debug.Log("You pressed Jump!");
+        if (CC != null && Grounded())
+        {
+            velocityG.y = 8.0f;
+            CC.Move(velocityG * Time.deltaTime);
+        }
     }
 
     private void Grab_Start()
