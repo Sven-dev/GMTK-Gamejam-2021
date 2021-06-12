@@ -25,13 +25,33 @@ public class PlugDetector : MonoBehaviour
     }
 
     //Grab the nearest cable plug, if there's one in range
-    public void GrabCable()
+    public void GrabPlug()
     {
-        Transform ClosestPlug;
+        if (Plugs.Count != 0)
+        {
+            Transform Plug = GetClosestPlug();
+
+
+        }
+    }
+
+    private Transform GetClosestPlug()
+    {
+        Transform ClosestPlug = transform;
+        float ClosestDistance = Mathf.Infinity;
+
         foreach (Transform Plug in Plugs)
         {
-            Vector3.Distance(transform.position, Plug.position);
+            float distance = Vector3.Distance(transform.position, Plug.position);
+
+            if (distance < ClosestDistance)
+            {
+                ClosestPlug = Plug;
+                ClosestDistance = distance;
+            }
         }
+
+        return ClosestPlug;
     }
 
     private void DropCable()

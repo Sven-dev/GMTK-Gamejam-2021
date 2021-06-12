@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour
     private void Grab()
     {
         // Activate a Casting Sphere, that touches colliders
-        PlugDetector.GrabCable();
+        PlugDetector.GrabPlug();
     }
 
     private void Ungrab()
