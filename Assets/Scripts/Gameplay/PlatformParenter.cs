@@ -8,7 +8,6 @@ public class PlatformParenter : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("play in");
             other.transform.parent = transform;
         }
     }
@@ -16,7 +15,6 @@ public class PlatformParenter : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("play out");
             other.transform.parent = null;
         }
     }

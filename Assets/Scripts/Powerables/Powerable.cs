@@ -11,17 +11,13 @@ public class Powerable : MonoBehaviour
     public virtual void PowerUp()
     {
         isPowered = true;
-
         PowerVisualCues();
     }
     public virtual void PowerDown()
     {
         isPowered = false;
-
         PowerVisualCues();
     }
-
-
 
     protected void PowerVisualCues()
     {
@@ -33,5 +29,4 @@ public class Powerable : MonoBehaviour
             }
         }
     }
-
 }

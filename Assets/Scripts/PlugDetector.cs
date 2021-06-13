@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PlugDetector : MonoBehaviour
 {
+    [SerializeField] private AudioSource PlugIn;
+    [SerializeField] private AudioSource PlugOut;
+
     private List<Transform> Plugs = new List<Transform>();
     private List<Transform> Sockets = new List<Transform>();
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -56,6 +60,7 @@ public class PlugDetector : MonoBehaviour
 
             if (s != null && !s.Plugged && plig != null)
             {
+                PlugIn.Play();
                 plig.Connect(s);
             }
         }
