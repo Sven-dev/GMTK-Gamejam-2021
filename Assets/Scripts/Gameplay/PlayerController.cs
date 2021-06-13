@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
             CC.Move(move * fSpeed * Time.deltaTime);
 
-            if(ModelObject != null)
+            if(ModelObject != null && !isDragged)
                 ModelObject.transform.rotation = Quaternion.LookRotation(move);
         }
 
@@ -141,6 +141,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] PlugDetector PlugDetector;
     Rigidbody draggedPlug = null;
+
+    bool isDragged = false;
 
     #endregion
 
@@ -189,12 +191,18 @@ public class PlayerController : MonoBehaviour
 
                 if (direction.magnitude > 0.4f)
                 {
+                    isDragged = true;
+
                     ModelObject.transform.LookAt(draggedPlug.position);
                     ModelObject.transform.localEulerAngles =
                         new Vector3(0.0f, ModelObject.transform.localEulerAngles.y, 0.0f);
 
                     // Grab_End();
                     CC.Move(-direction * fSpeed * 10 * direction.magnitude * Time.deltaTime);
+                }
+                else
+                {
+                    isDragged = false;
                 }
             }
         }
