@@ -52,4 +52,19 @@ public class PoweredPlatform : Powerable
             yield return new WaitForFixedUpdate();
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.transform.parent = transform;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.transform.parent = null;
+        }
+    }
 }

@@ -11,15 +11,10 @@ public class Cable : MonoBehaviour
     [Space]
     [SerializeField] public int Length;
 
-    // Start is called before the first frame update
-    void Start()
+    public void DetachPlug()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

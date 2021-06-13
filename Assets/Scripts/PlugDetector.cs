@@ -41,6 +41,8 @@ public class PlugDetector : MonoBehaviour
         {
             Transform plugTr = GetClosestItem(Plugs);
             plugRb = plugTr.GetComponent<Rigidbody>();
+
+
         }
         return plugRb;
     }
@@ -51,14 +53,11 @@ public class PlugDetector : MonoBehaviour
         {
             Transform socket = GetClosestItem(Sockets);
             Socket s = socket.GetComponent<Socket>();
+            Plug plig = plug.GetComponent<Plug>();
 
-            if (!s.Plugged)
+            if (s != null && !s.Plugged && plig != null)
             {
-                plug.constraints = RigidbodyConstraints.FreezeAll;
-                plug.position = socket.position;
-                plug.transform.parent = socket;
-
-                s.Plugged = true;
+                plig.Connect(s);
             }
         }
     }

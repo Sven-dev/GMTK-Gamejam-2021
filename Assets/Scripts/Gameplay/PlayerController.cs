@@ -157,7 +157,6 @@ public class PlayerController : MonoBehaviour
                 if (plig != null)
                 {
                     plig.Disconnect();
-                    draggedPlug.constraints = RigidbodyConstraints.None;
                 }
             }
             else
