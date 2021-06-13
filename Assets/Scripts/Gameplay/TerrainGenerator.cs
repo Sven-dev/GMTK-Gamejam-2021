@@ -33,18 +33,18 @@ public enum TileType
 
 public class TileSet
 {
-    GameObject tile = null;
+    public GameObject Tile { get; private set; }
 
     public TileSet(GameObject _tile)
     {
-        tile = _tile;
+        Tile = _tile;
     }
 
     public Vector3 GetPosition()
     {
-        if (tile)
+        if (Tile)
         {
-            return tile.transform.position;
+            return Tile.transform.position;
         }
 
         Debug.LogError("Tile does not exist");
@@ -53,29 +53,29 @@ public class TileSet
 
     public void SetParent(Transform _parent)
     {
-        if (tile)
+        if (Tile)
         {
-            tile.transform.parent = _parent;
+            Tile.transform.parent = _parent;
         }
     }
 
     public void SetPosition(Vector2 _position)
     {
-        if (tile)
+        if (Tile)
         {
-            Vector3 newPos = tile.transform.localPosition;
+            Vector3 newPos = Tile.transform.localPosition;
             newPos.x = _position.x;
             newPos.z = _position.y;
-            tile.transform.localPosition = newPos;
+            Tile.transform.localPosition = newPos;
         }
     }
     public void SetHeight(float _height)
     {
-        if (tile)
+        if (Tile)
         {
-            Vector3 newPos = tile.transform.localPosition;
+            Vector3 newPos = Tile.transform.localPosition;
             newPos.y = _height;
-            tile.transform.localPosition = newPos;
+            Tile.transform.localPosition = newPos;
         }
     }
 
@@ -92,16 +92,16 @@ public class TileSet
             default:                                                break;
         }
 
-        if (tile)
+        if (Tile)
         {
-            tile.transform.rotation = Quaternion.Euler(0, rotationY, 0);
+            Tile.transform.rotation = Quaternion.Euler(0, rotationY, 0);
         }
     }
     public void SetFlipped(bool _flip)
     {
-        if (tile && _flip)
+        if (Tile && _flip)
         {
-            tile.transform.localScale = new Vector3(-tile.transform.localScale.x, tile.transform.localScale.y, tile.transform.localScale.z);
+            Tile.transform.localScale = new Vector3(-Tile.transform.localScale.x, Tile.transform.localScale.y, Tile.transform.localScale.z);
         }
     }
 }
@@ -152,12 +152,19 @@ public class TerrainGenerator : MonoBehaviour
             for (int y = 0; y < TileSize.y; y++)
                 for (int x = 0; x < TileSize.x; x++)
                 {
-                    tileMap[x, y] = GetTileType(CalculateType(x, y));
+                    TileType tt = CalculateType(x, y);
+
+                    tileMap[x, y] = GetTileType(tt);
                     if (tileMap[x, y] != null)
                     {
                         tileMap[x, y].SetParent(tilesParent);
                         tileMap[x, y].SetPosition(new Vector2(x,y));
                         tileMap[x, y].SetHeight(levelMap[x,y] * 0.5f);
+
+                        if (levelMap[x, y] == 0 && tt == TileType.Ground)
+                        {
+                            tileMap[x, y].Tile.SetActive(false);
+                        }
                     }
                 }
         }

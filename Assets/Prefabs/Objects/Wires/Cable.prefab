@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555f90a401589024ea99f0842a6779d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plugPrefab: {fileID: 0}
+  plugPrefab: {fileID: 6655740315672949373, guid: c0516772097009649937c46b20da7c23, type: 3}
   jointPrefab: {fileID: 559051193306443872, guid: 3f119d16906f752478005bb418e5d7ca, type: 3}
   socket: {fileID: 0}
   parent: {fileID: 8361512402298573496}

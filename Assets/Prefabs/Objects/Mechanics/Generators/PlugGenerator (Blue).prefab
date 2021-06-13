@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 214328264748122963, guid: 02a46350f5172534ca8936e90c1a238d, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 3.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 214328264748122963, guid: 02a46350f5172534ca8936e90c1a238d, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 214328264748122963, guid: 02a46350f5172534ca8936e90c1a238d, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: 3.7598076
+      objectReference: {fileID: 0}
+    - target: {fileID: 2006861700741422107, guid: 02a46350f5172534ca8936e90c1a238d, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 770783bef6f68aa4288ae3b4240f93bf, type: 2}
     - target: {fileID: 2377475723659647845, guid: 02a46350f5172534ca8936e90c1a238d, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 1.0334946

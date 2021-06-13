@@ -6,7 +6,7 @@ public class PoweredPlatform : Powerable
 {
     [SerializeField] private float Speed = 1;
     [Space]
-    [SerializeField] private Rigidbody Platform;
+    [SerializeField] private Transform Platform;
     [Space]
     [SerializeField] private Transform Beginning;
     [SerializeField] private Transform End;
@@ -41,18 +41,4 @@ public class PoweredPlatform : Powerable
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            other.transform.parent = transform;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            other.transform.parent = null;
-        }
-    }
 }
