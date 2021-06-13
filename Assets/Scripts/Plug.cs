@@ -52,7 +52,7 @@ public class Plug : MonoBehaviour
 
     public void Disconnect()
     {
-        if(socket != null && sensitive)
+        if(socket != null)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null)

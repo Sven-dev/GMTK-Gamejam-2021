@@ -23,7 +23,7 @@ public class CableDisconnector : MonoBehaviour
             Cable cable = other.transform.GetComponent<Cable>();
             if (cable != null)
             {
-
+                cable.DetachPlug();
             }
         }
     }

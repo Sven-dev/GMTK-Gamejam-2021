@@ -10,7 +10,7 @@ public class Cable : MonoBehaviour
 
     public void DetachPlug()
     {
-        if (plugEnd != null && plugEnd.IsConnected())
+        if (plugEnd != null && plugEnd.IsConnected() && plugEnd.sensitive)
         {
             plugEnd.Disconnect();
         }
