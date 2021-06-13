@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VisualCues:
-  - {fileID: 0}
+  - {fileID: 6040501161239881337}
   - {fileID: 6789959505210520547}
 --- !u!65 &7810134606272266716
 BoxCollider:
@@ -245,6 +245,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5fc5c5eab919b147a97114d949aedd6, type: 3}
+--- !u!1 &6040501161239881337 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6011747906791736831, guid: d5fc5c5eab919b147a97114d949aedd6, type: 3}
+  m_PrefabInstance: {fileID: 52406107583062918}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &168986859058248617
 PrefabInstance:
   m_ObjectHideFlags: 0
