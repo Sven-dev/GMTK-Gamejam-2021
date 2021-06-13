@@ -11,7 +11,7 @@ public abstract class Powerable : MonoBehaviour
     public abstract void PowerDown();
 
 
-    private void PowerVisualCues()
+    protected void PowerVisualCues()
     {
         if (VisualCues != null && VisualCues.Length > 0)
         {
