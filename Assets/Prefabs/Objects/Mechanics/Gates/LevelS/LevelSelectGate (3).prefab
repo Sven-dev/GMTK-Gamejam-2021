@@ -35,6 +35,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[3]
       value: 
       objectReference: {fileID: 2100000, guid: 800af217595980e4e8dd8c4557800ecd, type: 2}
+    - target: {fileID: 5676727689755555241, guid: fd0454990b2454f4bb091a998b7bd43e, type: 3}
+      propertyPath: m_Text
+      value: Level 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6669139617435605764, guid: fd0454990b2454f4bb091a998b7bd43e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -95,5 +99,9 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b7153469d44df4a4bb47ff4bcbb11500, type: 2}
+    - target: {fileID: 8233371231380923832, guid: fd0454990b2454f4bb091a998b7bd43e, type: 3}
+      propertyPath: NextSceneIndex
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd0454990b2454f4bb091a998b7bd43e, type: 3}
