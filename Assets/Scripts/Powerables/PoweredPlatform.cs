@@ -30,10 +30,12 @@ public class PoweredPlatform : Powerable
                 if (progress >= 1)
                 {
                     sigma = -1;
+                    yield return new WaitForSeconds(2);
                 }
                 else if (progress <= 0)
                 {
                     sigma = 1;
+                    yield return new WaitForSeconds(2);
                 }
             }
 
