@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3e83ac76bfaf7479b0014a40e4d2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fSpeed: 100
-  fJumpStrength: 3.5
+  fSpeed: 1000
+  fJumpStrength: 4
   GrabForce: 250
   PlugHolder: {fileID: 8034509929165306370}
   groundMask:
@@ -289,13 +289,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862749037913577547}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 100
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &3671402354130183852
 BoxCollider:
@@ -304,7 +304,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862749037913577547}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 607c14366183028469701c8f14da1c27, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -410,7 +410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6967999743604063845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.09, y: 0.078, z: 0.093}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2396430991808578636}
