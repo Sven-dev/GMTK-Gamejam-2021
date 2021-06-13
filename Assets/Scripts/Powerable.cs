@@ -6,7 +6,7 @@ public abstract class Powerable : MonoBehaviour
 {
     [SerializeField] private GameObject[] VisualCues;
 
-    bool isPowered = false;
+    protected bool isPowered = false;
     public abstract void PowerUp();
     public abstract void PowerDown();
 
