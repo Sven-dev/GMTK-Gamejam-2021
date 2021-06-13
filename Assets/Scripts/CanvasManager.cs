@@ -22,6 +22,7 @@ public class CanvasManager : MonoBehaviour
             Destroy(this);
         }
 
+        StartCoroutine(FadeToBlack(1,0));
     }
     private void OnDestroy()
     {
@@ -42,7 +43,7 @@ public class CanvasManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        FinishFade.Invoke();
+        if(FinishFade != null) FinishFade.Invoke();
     }
 
     public event Action FinishFade;

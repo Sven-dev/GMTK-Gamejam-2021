@@ -11,21 +11,9 @@ public class PoweredPlatform : Powerable
     [SerializeField] private Transform Beginning;
     [SerializeField] private Transform End;
 
-    private bool active = false;
-
     private void Start()
     {
         StartCoroutine(_Move());
-    }
-
-    public override void PowerUp()
-    {
-        active = true;
-    }
-
-    public override void PowerDown()
-    {
-        active = false;
     }
 
     IEnumerator _Move()
@@ -34,7 +22,7 @@ public class PoweredPlatform : Powerable
         float progress = 0;
         while(true)
         {
-            if (active)
+            if (isPowered)
             {
                 Platform.position = Vector3.Lerp(Beginning.position, End.position, progress);
 

@@ -2,28 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
-public class PowerableFinish : Powerable
+public class EndGateFinisher : MonoBehaviour
 {
-    [Space]
     [SerializeField] private int NextSceneIndex;
-
-    public override void PowerUp()
-    {
-        isPowered = true;
-
-        PowerVisualCues();
-    }
-    public override void PowerDown()
-    {
-        isPowered = false;
-
-        PowerVisualCues();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && isPowered)
+        if (other.CompareTag("Player"))
         {
             ActivateEnd();
         }
@@ -44,10 +31,17 @@ public class PowerableFinish : Powerable
 
     private void LoadScene()
     {
-        if (NextSceneIndex > 0)
+        if (NextSceneIndex >= 0)
         {
             SceneManager.LoadScene(NextSceneIndex);
         }
+        else
+        {
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+        }
     }
-
 }

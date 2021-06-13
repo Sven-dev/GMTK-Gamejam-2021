@@ -13,6 +13,8 @@ public class PoweredDoor : Powerable
     
     public override void PowerUp()
     {
+        base.PowerUp();
+
         if (coroutine != null)
         {
             StopCoroutine(coroutine);
@@ -24,6 +26,8 @@ public class PoweredDoor : Powerable
 
     public override void PowerDown()
     {
+        base.PowerDown();
+
         if (coroutine != null)
         {
             StopCoroutine(coroutine);

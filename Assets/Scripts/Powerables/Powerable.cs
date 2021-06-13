@@ -2,13 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Powerable : MonoBehaviour
+public class Powerable : MonoBehaviour
 {
     [SerializeField] private GameObject[] VisualCues;
 
     protected bool isPowered = false;
-    public abstract void PowerUp();
-    public abstract void PowerDown();
+
+    public virtual void PowerUp()
+    {
+        isPowered = true;
+
+        PowerVisualCues();
+    }
+    public virtual void PowerDown()
+    {
+        isPowered = false;
+
+        PowerVisualCues();
+    }
+
 
 
     protected void PowerVisualCues()
