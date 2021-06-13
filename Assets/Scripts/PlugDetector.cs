@@ -41,9 +41,8 @@ public class PlugDetector : MonoBehaviour
         {
             Transform plugTr = GetClosestItem(Plugs);
             plugRb = plugTr.GetComponent<Rigidbody>();
-
-
         }
+
         return plugRb;
     }
 

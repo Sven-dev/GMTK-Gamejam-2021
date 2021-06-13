@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CableSpawner : MonoBehaviour
 {
-    [SerializeField] private Rigidbody socket;
-    [SerializeField] private CharacterJoint connectorPrefab;
+    [SerializeField] private CharacterJoint plugPrefab;
     [SerializeField] private CharacterJoint jointPrefab;
+    [Space]
+    [SerializeField] private CharacterJoint socket;
     [SerializeField] private Transform parent;
     [Space]
     [SerializeField] [Range(1, 10)] private int length = 1;
@@ -21,13 +22,15 @@ public class CableSpawner : MonoBehaviour
 
     public void SpawnJoints()
     {
+        //Calculate cable length
         int count = (int)(length / jointDistance);
 
-        CharacterJoint connectorB = Instantiate(connectorPrefab, transform.position + (Vector3.up * jointDistance * (count + 0.5f)), Quaternion.identity, parent);
-        Plug plig = connectorB.GetComponent<Plug>();
+        //Spawn cable plug
+        CharacterJoint connectorB = Instantiate(plugPrefab, transform.position + (Vector3.up * jointDistance * (count + 0.5f)), Quaternion.identity, parent);
+        Plug plug = connectorB.GetComponent<Plug>();
 
         //Spawn cables
-        Rigidbody previousJoint = null;
+        CharacterJoint previousJoint = socket;
         for (int x = 0; x < count; x++)
         {
             CharacterJoint joint = Instantiate(
@@ -36,30 +39,22 @@ public class CableSpawner : MonoBehaviour
                 Quaternion.identity,
                 parent);
 
-            joint.transform.eulerAngles = new Vector3(180, 0, 0);
             joint.name = parent.childCount.ToString();
-
-            if (x == 0)
-            {
-                joint.connectedBody = socket;
-            }
-            else
-            {
-                joint.connectedBody = previousJoint;
-            }
+            previousJoint.connectedBody = joint.GetComponent<Rigidbody>();
 
             Cable cableScript = joint.GetComponent<Cable>();
             if (cableScript != null)
             {
-                cableScript.plugEnd = plig;
+                cableScript.plugEnd = plug;
                 cableScript.Length = count;
             }
 
-            previousJoint = joint.GetComponent<Rigidbody>();
+            previousJoint = joint.GetComponent<CharacterJoint>();
         }
 
         //Spawn last connector (with character joint)
         connectorB.transform.Rotate(Vector3.up * 180);
-        connectorB.connectedBody = previousJoint;
+        previousJoint.connectedBody = connectorB.GetComponent<Rigidbody>();
+        connectorB.connectedBody = plug.SelfConnector;
     }
 }

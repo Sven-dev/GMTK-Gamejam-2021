@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &963194228
 Transform:
   m_ObjectHideFlags: 0
@@ -229,9 +229,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2396430991808578636}
-  - component: {fileID: 4593315693120318819}
-  - component: {fileID: 3671402354130183852}
   - component: {fileID: 6279497426700541265}
+  - component: {fileID: 5780201042583605273}
+  - component: {fileID: 3671402354130183852}
   - component: {fileID: 6739735893758297256}
   m_Layer: 7
   m_Name: PlayerUnit
@@ -258,37 +258,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &4593315693120318819
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862749037913577547}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 0.4
-  m_Radius: 0.1
-  m_SlopeLimit: 60
-  m_StepOffset: 0.4
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.2, z: 0}
---- !u!65 &3671402354130183852
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862749037913577547}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 0.1}
-  m_Center: {x: 0, y: 0.23, z: 0}
 --- !u!114 &6279497426700541265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,14 +270,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3e83ac76bfaf7479b0014a40e4d2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fSpeed: 100
+  fJumpStrength: 3.5
+  GrabForce: 250
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  fGravity: 9.81
-  ModelObject: {fileID: 1845227315454496390}
-  fSpeed: 2
-  fJumpStrength: 3.5
   PlugDetector: {fileID: 568871163802982434}
+  ModelObject: {fileID: 1845227315454496390}
+  Rigidbody: {fileID: 5780201042583605273}
+  GrabJoint: {fileID: 0}
+--- !u!54 &5780201042583605273
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862749037913577547}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
+--- !u!65 &3671402354130183852
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862749037913577547}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.35200906, z: 0.1}
+  m_Center: {x: 0, y: 0.12600452, z: 0}
 --- !u!95 &6739735893758297256
 Animator:
   serializedVersion: 3

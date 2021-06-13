@@ -4,35 +4,32 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-    #region Instance
     //put instance stuff here
+    public static PlayerController Instance { get { return _Instance; } }
     private static PlayerController _Instance;
-    public static PlayerController Instance
-    {
-        get
-        {
-            return _Instance;
-        }
-    }
-    #endregion
-
-    #region Base Unity Functions
-
-    #region Base Variables
 
     public GameplayControls inputControls { get; private set; }
-    public CharacterController CC { get; private set; }
     public Animator animator { get; private set; }
 
-    #endregion
-    #region Serialized Variables
-
+    [SerializeField] float fSpeed = 2.0f;
+    [SerializeField] float fJumpStrength = 3.5f;
+    [SerializeField] private float GrabForce = 500;
+    [Space]
     [SerializeField] LayerMask groundMask = 0;
-    [SerializeField] float fGravity = 9.81f;
+    [Space]
+    [SerializeField] private PlugDetector PlugDetector;
+    [SerializeField] private GameObject ModelObject = null;
+    [Space]
+    [SerializeField] private Rigidbody Rigidbody;
 
-    #endregion
+    private Rigidbody draggedPlug = null;
+    private bool isDragged = false;
 
+    private Vector3 velocityG = Vector3.zero;
+    private Vector2 moveInput = Vector2.zero;
+
+
+    #region Base Unity Functions
     private void Awake()
     {
         if (_Instance == null)
@@ -45,8 +42,6 @@ public class PlayerController : MonoBehaviour
         }
 
         inputControls = new GameplayControls();
-
-        CC = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
     }
     private void OnDestroy()
@@ -67,31 +62,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         SetButtonCalls();
-
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(CC != null && !CC.enabled) CC.enabled = true;
-
-        if (Grounded()) velocityG = Vector3.zero;
-        else velocityG.y -= fGravity * Time.deltaTime;
-
-        if (CC != null) Movement();
-        if (draggedPlug != null) Grabbing();
-    }
-
-    #endregion
-
-    #region Button Call Functions
-
-    [SerializeField] GameObject ModelObject = null;
-
-    Vector3 velocityG = Vector3.zero;
-
-    [SerializeField] float fSpeed = 2.0f;
-    [SerializeField] float fJumpStrength = 3.5f;
 
     private void SetButtonCalls()
     {
@@ -108,73 +79,75 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Movement()
+    // Update is called once per frame
+    void Update()
     {
-        Vector2 moveInput = inputControls.Player.Move.ReadValue<Vector2>();
+        moveInput = inputControls.Player.Move.ReadValue<Vector2>();
+    }
 
-        if (moveInput.sqrMagnitude > 0.0f)
+    void FixedUpdate()
+    {
+        //Grabbing
+        if (draggedPlug != null)
         {
-            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-
-            // Animation deactivate for now
-            if (animator != null && animator.isActiveAndEnabled) animator.SetFloat("vSpeed", move.magnitude);
-
-            CC.Move(move * fSpeed * Time.deltaTime);
-
-            if(ModelObject != null && !isDragged)
-                ModelObject.transform.rotation = Quaternion.LookRotation(move);
+            Grabbing();
         }
 
-        if (velocityG.magnitude > 0.0f) CC.Move(velocityG * Time.deltaTime);
+        //Moving
+        if (moveInput.sqrMagnitude > 0.0f)
+        {
+            //Get movement input
+            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+
+            //Rotate model into move direction
+            if (ModelObject != null && !isDragged)
+                ModelObject.transform.rotation = Quaternion.LookRotation(move);
+
+            //Add movement speed
+            move *= fSpeed * Time.fixedDeltaTime;
+
+            //Account for jumping/gravity
+            move.y = Rigidbody.velocity.y;
+
+            Rigidbody.velocity = move;
+        }
     }
+    #endregion
+
+    #region Button Call Functions
 
     private void Jump()
     {
-        if (CC != null && Grounded())
+        if (Grounded())
         {
-            velocityG.y = fJumpStrength;
-            CC.Move(velocityG * Time.deltaTime);
+            Rigidbody.velocity = Vector3.up * fJumpStrength;
         }
     }
-
-    #region Plug Variables
-
-    [SerializeField] PlugDetector PlugDetector;
-    Rigidbody draggedPlug = null;
-
-    bool isDragged = false;
-
-    #endregion
 
     private void Grab_Start()
     {
-        if (PlugDetector != null)
+        draggedPlug = PlugDetector.GrabPlug();
+        if (draggedPlug != null)
         {
-            draggedPlug = PlugDetector.GrabPlug();
+            Plug plug = draggedPlug.GetComponent<Plug>();
+            plug.CharacterJoint.connectedBody = Rigidbody;
 
-            // Add also Polish here, like animations
-            if (draggedPlug != null)
+            if (plug != null)
             {
-                Plug plig = draggedPlug.GetComponent<Plug>();
-                if (plig != null)
-                {
-                    plig.Disconnect();
-                }
-            }
-            else
-            {
-
+                plug.Disconnect();
             }
         }
     }
+
     private void Grab_End()
     {
         if (draggedPlug != null)
         {
+            Plug plug = draggedPlug.GetComponent<Plug>();
+            plug.CharacterJoint.connectedBody = plug.SelfConnector;
+
             PlugDetector.PlugCable(draggedPlug);
             draggedPlug = null;
-
-            // Add also Polish here, like animations
         }
     }
 
@@ -186,19 +159,18 @@ public class PlayerController : MonoBehaviour
 
             if (direction.magnitude > 0.01f)
             {
-                Vector3 force = direction * 500;
+                Vector3 force = direction * GrabForce;
                 draggedPlug.velocity = force;
 
                 if (direction.magnitude > 0.4f)
                 {
                     isDragged = true;
 
-                    ModelObject.transform.LookAt(draggedPlug.position);
-                    ModelObject.transform.localEulerAngles =
-                        new Vector3(0.0f, ModelObject.transform.localEulerAngles.y, 0.0f);
+                    //ModelObject.transform.LookAt(draggedPlug.position);
+                    //ModelObject.transform.localEulerAngles =
+                        //new Vector3(0.0f, ModelObject.transform.localEulerAngles.y, 0.0f);
 
-                    // Grab_End();
-                    CC.Move(-direction * fSpeed * 10 * direction.magnitude * Time.deltaTime);
+                    //Rigidbody.position += (-direction * fSpeed * 10 * direction.magnitude * Time.fixedDeltaTime);
                 }
                 else
                 {
@@ -207,6 +179,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+
 
     #region UI Related
 
@@ -235,18 +209,7 @@ public class PlayerController : MonoBehaviour
     
     public void PlayerReset()
     {
-        CC.enabled = false;
-
         transform.position = Vector3.up * 5;
-        velocityG = Vector3.zero;
-    }
-    public bool AreFalling()
-    {
-        if (velocityG.y < 0.0f)
-        {
-            return true;
-        }
-        return false;
     }
 
     #endregion
@@ -263,5 +226,4 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-
 }
