@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject ModelObject = null;
     [Space]
     [SerializeField] private Rigidbody Rigidbody;
+    [Space]
+    [SerializeField] private AudioSource PlugPickup;
+    [SerializeField] private AudioSource PlugDrop;
 
     private Rigidbody draggedPlug = null;
     private bool isDragged = false;
@@ -127,6 +130,8 @@ public class PlayerController : MonoBehaviour
         draggedPlug = PlugDetector.GrabPlug();
         if (draggedPlug != null)
         {
+            PlugPickup.Play();
+
             Plug plug = draggedPlug.GetComponent<Plug>();
             draggedPlug.transform.parent = PlugHolder;
             draggedPlug.transform.position = PlugHolder.position;
@@ -150,6 +155,8 @@ public class PlayerController : MonoBehaviour
 
             draggedPlug.transform.parent = plug.CableHolder;
             draggedPlug = null;
+
+            PlugDrop.Play();
         }
     }
 

@@ -9,6 +9,9 @@ public class Socket : MonoBehaviour
     [SerializeField] Transform PlugTr;
     [Space]
     [SerializeField] List<Powerable> Powers = new List<Powerable>();
+    [Space]
+    [SerializeField] private AudioSource PlugIn;
+    [SerializeField] private AudioSource PlugOut;
 
     public bool Plugged;
 
@@ -24,6 +27,7 @@ public class Socket : MonoBehaviour
             powerable.PowerUp();
         }
 
+        PlugIn.Play();
         Plugged = true;
     }
 
@@ -40,6 +44,7 @@ public class Socket : MonoBehaviour
             powerable.PowerDown();
         }
 
+        PlugOut.Play();
         Plugged = false;
     }
 }
