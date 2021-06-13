@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CableSpawner : MonoBehaviour
 {
-    [SerializeField] private CharacterJoint plugPrefab;
-    [SerializeField] private CharacterJoint jointPrefab;
+    [SerializeField] private Joint plugPrefab;
+    [SerializeField] private Joint jointPrefab;
     [Space]
-    [SerializeField] private CharacterJoint socket;
+    [SerializeField] private Joint socket;
     [SerializeField] private Transform parent;
     [Space]
     [SerializeField] [Range(1, 10)] private int length = 1;
@@ -26,21 +26,24 @@ public class CableSpawner : MonoBehaviour
         int count = (int)(length / jointDistance);
 
         //Spawn cable plug
-        CharacterJoint connectorB = Instantiate(plugPrefab, transform.position + (Vector3.up * jointDistance * (count + 0.5f)), Quaternion.identity, parent);
+        Joint connectorB = Instantiate(plugPrefab, transform.position + (Vector3.up * jointDistance), Quaternion.identity, parent);
         Plug plug = connectorB.GetComponent<Plug>();
+        plug.CableHolder = transform;
 
         //Spawn cables
-        CharacterJoint previousJoint = socket;
+        Joint previousJoint = socket;
         for (int x = 0; x < count; x++)
         {
-            CharacterJoint joint = Instantiate(
+            Joint joint = Instantiate(
                 jointPrefab,
-                transform.position + (Vector3.up * jointDistance * (x + 1)), 
+                transform.position + (Vector3.up * jointDistance), 
                 Quaternion.identity,
                 parent);
 
             joint.name = parent.childCount.ToString();
-            previousJoint.connectedBody = joint.GetComponent<Rigidbody>();
+
+            Rigidbody rb = joint.GetComponent<Rigidbody>();
+            previousJoint.connectedBody = rb;
 
             Cable cableScript = joint.GetComponent<Cable>();
             if (cableScript != null)
@@ -49,7 +52,13 @@ public class CableSpawner : MonoBehaviour
                 cableScript.Length = count;
             }
 
-            previousJoint = joint.GetComponent<CharacterJoint>();
+            if (x == 0)
+            {
+                joint.transform.Rotate(Vector3.left * 90);
+                joint.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            }
+
+            previousJoint = joint.GetComponent<Joint>();
         }
 
         //Spawn last connector (with character joint)

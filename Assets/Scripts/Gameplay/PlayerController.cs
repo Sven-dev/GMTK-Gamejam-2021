@@ -11,11 +11,12 @@ public class PlayerController : MonoBehaviour
     public GameplayControls inputControls { get; private set; }
     public Animator animator { get; private set; }
 
-    [SerializeField] float fSpeed = 2.0f;
-    [SerializeField] float fJumpStrength = 3.5f;
+    [SerializeField] private float fSpeed = 2.0f;
+    [SerializeField] private float fJumpStrength = 3.5f;
     [SerializeField] private float GrabForce = 500;
     [Space]
-    [SerializeField] LayerMask groundMask = 0;
+    [SerializeField] private Transform PlugHolder;
+    [SerializeField] private LayerMask groundMask = 0;
     [Space]
     [SerializeField] private PlugDetector PlugDetector;
     [SerializeField] private GameObject ModelObject = null;
@@ -25,7 +26,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody draggedPlug = null;
     private bool isDragged = false;
 
-    private Vector3 velocityG = Vector3.zero;
     private Vector2 moveInput = Vector2.zero;
 
 
@@ -86,36 +86,34 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
-        //Grabbing
-        if (draggedPlug != null)
-        {
-            Grabbing();
-        }
-
+    {   
         //Moving
         if (moveInput.sqrMagnitude > 0.0f)
         {
             //Get movement input
             Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
 
-            //Rotate model into move direction
-            if (ModelObject != null && !isDragged)
-                ModelObject.transform.rotation = Quaternion.LookRotation(move);
-
             //Add movement speed
-            move *= fSpeed * Time.fixedDeltaTime;
+            move *= fSpeed;
 
             //Account for jumping/gravity
             move.y = Rigidbody.velocity.y;
 
-            Rigidbody.velocity = move;
+            Rigidbody.AddRelativeForce(move);
+
+            //Rotate model into move direction
+            if (ModelObject != null && !isDragged)
+            {
+                Vector3 temp = Rigidbody.velocity;
+                temp.y = 0;
+                ModelObject.transform.rotation = Quaternion.LookRotation(temp);
+            }
         }
+
     }
     #endregion
 
     #region Button Call Functions
-
     private void Jump()
     {
         if (Grounded())
@@ -130,7 +128,9 @@ public class PlayerController : MonoBehaviour
         if (draggedPlug != null)
         {
             Plug plug = draggedPlug.GetComponent<Plug>();
-            plug.CharacterJoint.connectedBody = Rigidbody;
+            draggedPlug.transform.parent = PlugHolder;
+            draggedPlug.transform.position = PlugHolder.position;
+            plug.Joint.connectedBody = Rigidbody;
 
             if (plug != null)
             {
@@ -144,46 +144,16 @@ public class PlayerController : MonoBehaviour
         if (draggedPlug != null)
         {
             Plug plug = draggedPlug.GetComponent<Plug>();
-            plug.CharacterJoint.connectedBody = plug.SelfConnector;
+            plug.Joint.connectedBody = plug.SelfConnector;
 
             PlugDetector.PlugCable(draggedPlug);
+
+            draggedPlug.transform.parent = plug.CableHolder;
             draggedPlug = null;
         }
     }
 
-    private void Grabbing()
-    {
-        if (draggedPlug != null)
-        {
-            Vector3 direction = (transform.position + ModelObject.transform.up * 0.15f + ModelObject.transform.forward * 0.15f - draggedPlug.position);
-
-            if (direction.magnitude > 0.01f)
-            {
-                Vector3 force = direction * GrabForce;
-                draggedPlug.velocity = force;
-
-                if (direction.magnitude > 0.4f)
-                {
-                    isDragged = true;
-
-                    //ModelObject.transform.LookAt(draggedPlug.position);
-                    //ModelObject.transform.localEulerAngles =
-                        //new Vector3(0.0f, ModelObject.transform.localEulerAngles.y, 0.0f);
-
-                    //Rigidbody.position += (-direction * fSpeed * 10 * direction.magnitude * Time.fixedDeltaTime);
-                }
-                else
-                {
-                    isDragged = false;
-                }
-            }
-        }
-    }
-
-
-
     #region UI Related
-
     private void Pause()
     {
         Debug.Log("You Paused");
@@ -192,13 +162,11 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("You want a Menu");
     }
-
     #endregion
 
     #endregion
 
     #region Public Extra Functions
-
     public void PlayAnimation(string _name)
     {
         if (animator != null)
@@ -211,10 +179,9 @@ public class PlayerController : MonoBehaviour
     {
         transform.position = Vector3.up * 5;
     }
-
     #endregion
-    #region Private Extra Functions
 
+    #region Private Extra Functions
     private bool Grounded()
     {
         Vector3 halfExtend = new Vector3(0.15f, 0.1f, 0.15f);
@@ -224,6 +191,5 @@ public class PlayerController : MonoBehaviour
         }
         return false;
     }
-
     #endregion
 }

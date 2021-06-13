@@ -6,8 +6,9 @@ using UnityEngine;
 public class Plug : MonoBehaviour
 {
     [SerializeField] public SocketType Type = SocketType.Universal;
-    [SerializeField] public CharacterJoint CharacterJoint;
+    [SerializeField] public Joint Joint;
     [SerializeField] public Rigidbody SelfConnector;
+    [SerializeField] public Transform CableHolder;
 
     public Socket socket { get; private set; }
 
@@ -34,12 +35,6 @@ public class Plug : MonoBehaviour
                 {
                     rb.position = _socket.transform.position;
                     rb.constraints = RigidbodyConstraints.FreezeAll;
-                }
-
-                Joint j = GetComponent<Joint>();
-                if (j != null)
-                {
-                    j.connectedMassScale = 80.0f;
                 }
 
                 socket = _socket;
