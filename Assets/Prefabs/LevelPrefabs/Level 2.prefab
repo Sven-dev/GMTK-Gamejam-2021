@@ -2029,7 +2029,7 @@ GameObject:
   - component: {fileID: 2787763472246651077}
   - component: {fileID: 4516771450991598285}
   - component: {fileID: 1369085246728157026}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3436,7 +3436,7 @@ GameObject:
   - component: {fileID: 1316950149164929567}
   - component: {fileID: 3618204669242255659}
   - component: {fileID: 4274541700842818871}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5994,7 +5994,7 @@ GameObject:
   - component: {fileID: 6143669450451023189}
   - component: {fileID: 4786919167759247858}
   - component: {fileID: 3191629229797902577}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8394,7 +8394,7 @@ GameObject:
   - component: {fileID: 8571923546949853296}
   - component: {fileID: 7498866048325143834}
   - component: {fileID: 8119288513313434248}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8715,7 +8715,7 @@ GameObject:
   - component: {fileID: 5503160746852389040}
   - component: {fileID: 261282895591973497}
   - component: {fileID: 7701522765059609333}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10927,7 +10927,7 @@ GameObject:
   - component: {fileID: 1272271990869032281}
   - component: {fileID: 6158187562341129973}
   - component: {fileID: 3340751628179278575}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14608,7 +14608,7 @@ GameObject:
   - component: {fileID: 7430811816265082333}
   - component: {fileID: 3712374151805221755}
   - component: {fileID: 4249225115042526362}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14802,7 +14802,7 @@ GameObject:
   - component: {fileID: 7172871774822716915}
   - component: {fileID: 861992590143086359}
   - component: {fileID: 3646729904628305988}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15284,7 +15284,7 @@ GameObject:
   - component: {fileID: 674284361084295988}
   - component: {fileID: 1982980332188525906}
   - component: {fileID: 6044515962191369762}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15796,7 +15796,7 @@ GameObject:
   - component: {fileID: 5570667498979529797}
   - component: {fileID: 8906045505565481870}
   - component: {fileID: 6679817885517091897}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18995,7 +18995,7 @@ GameObject:
   - component: {fileID: 4442153346827494262}
   - component: {fileID: 6293125742621871019}
   - component: {fileID: 3559916196307870477}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21432,7 +21432,7 @@ GameObject:
   - component: {fileID: 428552405865204039}
   - component: {fileID: 1673441837133020936}
   - component: {fileID: 132640472973245101}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21529,7 +21529,7 @@ GameObject:
   - component: {fileID: 2606240036976983072}
   - component: {fileID: 1216008131054020669}
   - component: {fileID: 3818635721929683097}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22710,7 +22710,7 @@ GameObject:
   - component: {fileID: 8052902098576584539}
   - component: {fileID: 6087003713469536599}
   - component: {fileID: 8888593864093893230}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25015,7 +25015,7 @@ GameObject:
   - component: {fileID: 6137130750651968640}
   - component: {fileID: 6575841917558757498}
   - component: {fileID: 3115976556431399759}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25750,7 +25750,7 @@ GameObject:
   - component: {fileID: 1751047314610225586}
   - component: {fileID: 8039473543199889609}
   - component: {fileID: 5942377236764180062}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27956,7 +27956,7 @@ GameObject:
   - component: {fileID: 2297198259566910026}
   - component: {fileID: 2029719561461310762}
   - component: {fileID: 7330617378628318898}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28788,7 +28788,7 @@ GameObject:
   - component: {fileID: 5160946756371172495}
   - component: {fileID: 7544344726471634661}
   - component: {fileID: 4590129818610736802}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28885,7 +28885,7 @@ GameObject:
   - component: {fileID: 2599215255434968778}
   - component: {fileID: 3098206249600893197}
   - component: {fileID: 7802868799701033686}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29781,7 +29781,7 @@ GameObject:
   - component: {fileID: 1249000826796384337}
   - component: {fileID: 2574784990647573157}
   - component: {fileID: 130465056987669416}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32758,7 +32758,7 @@ GameObject:
   - component: {fileID: 5559271266796079884}
   - component: {fileID: 3843038652110104347}
   - component: {fileID: 1525214538244418535}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35126,7 +35126,7 @@ GameObject:
   - component: {fileID: 1452002233878806283}
   - component: {fileID: 5006803689992915320}
   - component: {fileID: 8381912217666171977}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: terrain_sideCliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
