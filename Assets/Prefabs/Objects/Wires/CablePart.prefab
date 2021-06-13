@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 1379034657084995281}
   - component: {fileID: 6934334540108254844}
   - component: {fileID: 4715410859769577904}
+  - component: {fileID: 105560302544695307}
   m_Layer: 11
   m_Name: CablePart
-  m_TagString: Untagged
+  m_TagString: Cable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,3 +161,19 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &105560302544695307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4548414403385036058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: debe87e3f501f294c8df4f44d226aa7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plugEnd: {fileID: 0}
+  Beginning: {fileID: 0}
+  End: {fileID: 0}
+  Length: 0

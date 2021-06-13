@@ -23,6 +23,9 @@ public class CableSpawner : MonoBehaviour
     {
         int count = (int)(length / jointDistance);
 
+        CharacterJoint connectorB = Instantiate(connectorPrefab, transform.position + (Vector3.up * jointDistance * (count + 0.5f)), Quaternion.identity, parent);
+        Plug plig = connectorB.GetComponent<Plug>();
+
         //Spawn cables
         Rigidbody previousJoint = null;
         for (int x = 0; x < count; x++)
@@ -45,11 +48,17 @@ public class CableSpawner : MonoBehaviour
                 joint.connectedBody = previousJoint;
             }
 
+            Cable cableScript = joint.GetComponent<Cable>();
+            if (cableScript != null)
+            {
+                cableScript.plugEnd = plig;
+                cableScript.Length = count;
+            }
+
             previousJoint = joint.GetComponent<Rigidbody>();
         }
 
         //Spawn last connector (with character joint)
-        CharacterJoint connectorB = Instantiate(connectorPrefab, transform.position + (Vector3.up * jointDistance * (count + 0.5f)), Quaternion.identity, parent);
         connectorB.transform.Rotate(Vector3.up * 180);
         connectorB.connectedBody = previousJoint;
     }

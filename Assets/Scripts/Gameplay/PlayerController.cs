@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
             Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
 
             // Animation deactivate for now
-            if (animator != null) animator.SetFloat("vSpeed", move.magnitude);
+            if (animator != null && animator.isActiveAndEnabled) animator.SetFloat("vSpeed", move.magnitude);
 
             CC.Move(move * fSpeed * Time.deltaTime);
 

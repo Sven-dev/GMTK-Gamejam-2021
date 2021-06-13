@@ -8,6 +8,14 @@ public class Plug : MonoBehaviour
     [SerializeField] public SocketType Type = SocketType.Universal;
     public Socket socket { get; private set; }
 
+    public bool sensitive { get; private set; }
+
+    public IEnumerator DetachSensetive()
+    {
+        sensitive = false;
+        yield return new WaitForSeconds(1.5f);
+        sensitive = true;
+    }
 
     public void Connect(Socket _socket)
     {
@@ -33,12 +41,18 @@ public class Plug : MonoBehaviour
 
                 socket = _socket;
                 socket.ConnectPlug(transform);
+
+                StartCoroutine(DetachSensetive());
             }
         }
     }
+    public bool IsConnected()
+    {
+        return socket != null;
+    }
     public void Disconnect()
     {
-        if(socket != null)
+        if(socket != null && sensitive)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null)

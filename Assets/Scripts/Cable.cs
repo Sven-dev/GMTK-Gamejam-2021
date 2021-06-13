@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Cable : MonoBehaviour
 {
-    [SerializeField] public SocketType Type;
-    [Space]
-    [SerializeField] public Transform Beginning;
-    [SerializeField] public Transform End;
-    [Space]
-    [SerializeField] public int Length;
+    [SerializeField] public Plug plugEnd;
+
+    public int Length;
 
     public void DetachPlug()
     {
-
+        if (plugEnd != null && plugEnd.IsConnected())
+        {
+            plugEnd.Disconnect();
+        }
     }
 
 

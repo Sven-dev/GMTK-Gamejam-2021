@@ -5,39 +5,49 @@ using UnityEngine.SceneManagement;
 
 public class PowerableFinish : Powerable
 {
-    [SerializeField] private int NextSceneIndex;
     [Space]
-    [SerializeField] private SpriteRenderer FadeImage;
-
+    [SerializeField] private int NextSceneIndex;
 
     public override void PowerUp()
     {
-        StartCoroutine(_Fade(0, 1));
-    }
+        isPowered = true;
 
+        PowerVisualCues();
+    }
     public override void PowerDown()
     {
-        
+        isPowered = false;
+
+        PowerVisualCues();
     }
 
-    private void LoadScene(int sceneIndex)
+    private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(sceneIndex);
-    }
-
-    IEnumerator _Fade(float from, float to)
-    {
-        float progress = 0;
-        while (progress < 1)
+        if (other.CompareTag("Player") && isPowered)
         {
-            Color c = FadeImage.color;
-            c.a = Mathf.Lerp(from, to, progress);
-            FadeImage.color = c;
-
-            progress += Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
+            ActivateEnd();
         }
-
-        LoadScene(NextSceneIndex);
     }
+
+    public void ActivateEnd()
+    {
+        if (CanvasManager.Instance != null)
+        {
+            CanvasManager.Instance.FinishFade += () => LoadScene();
+            StartCoroutine(CanvasManager.Instance.FadeToBlack(0, 1));
+        }
+        else
+        {
+            LoadScene();
+        }
+    }
+
+    private void LoadScene()
+    {
+        if (NextSceneIndex > 0)
+        {
+            SceneManager.LoadScene(NextSceneIndex);
+        }
+    }
+
 }
