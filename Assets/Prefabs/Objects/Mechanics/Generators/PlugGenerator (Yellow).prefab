@@ -20,6 +20,10 @@ PrefabInstance:
       value: 1.875
       objectReference: {fileID: 0}
     - target: {fileID: 3251231499967984703, guid: 02a46350f5172534ca8936e90c1a238d, type: 3}
+      propertyPath: plugPrefab
+      value: 
+      objectReference: {fileID: 796989912041364586, guid: f849c51515b2e644fab71e907c035d09, type: 3}
+    - target: {fileID: 3251231499967984703, guid: 02a46350f5172534ca8936e90c1a238d, type: 3}
       propertyPath: connectorPrefab
       value: 
       objectReference: {fileID: 375537817433667429, guid: f849c51515b2e644fab71e907c035d09, type: 3}
