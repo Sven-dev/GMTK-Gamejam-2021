@@ -44282,7 +44282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 689500695835034773, guid: c9e39936ddf029d4d8171d65c5bfa44b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 689500695835034773, guid: c9e39936ddf029d4d8171d65c5bfa44b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -44324,6 +44324,10 @@ PrefabInstance:
       propertyPath: VisualCues.Array.data[1]
       value: 
       objectReference: {fileID: 3967609253405923666}
+    - target: {fileID: 4104982147327172131, guid: c9e39936ddf029d4d8171d65c5bfa44b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b7ef4baf50cf564d83cd91a757848bc, type: 2}
     - target: {fileID: 5475036898379156175, guid: c9e39936ddf029d4d8171d65c5bfa44b, type: 3}
       propertyPath: m_Name
       value: Socket Satalite
@@ -44590,6 +44594,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6215177949285666810, guid: 5046631c9f59021428d0c18524a79278, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 800af217595980e4e8dd8c4557800ecd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5046631c9f59021428d0c18524a79278, type: 3}
 --- !u!1001 &4871980293551045233
@@ -44819,7 +44827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6669139617435605764, guid: 2f7711833c6b2624a9ef1f065e2dbfad, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5000002
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6669139617435605764, guid: 2f7711833c6b2624a9ef1f065e2dbfad, type: 3}
       propertyPath: m_LocalRotation.x
@@ -44827,7 +44835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6669139617435605764, guid: 2f7711833c6b2624a9ef1f065e2dbfad, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.8660253
+      value: -0.00000081956375
       objectReference: {fileID: 0}
     - target: {fileID: 6669139617435605764, guid: 2f7711833c6b2624a9ef1f065e2dbfad, type: 3}
       propertyPath: m_LocalRotation.z
@@ -44839,7 +44847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6669139617435605764, guid: 2f7711833c6b2624a9ef1f065e2dbfad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 120
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6669139617435605764, guid: 2f7711833c6b2624a9ef1f065e2dbfad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -44868,6 +44876,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Socket Satelite Activator
       objectReference: {fileID: 0}
+    - target: {fileID: 2291526751840621248, guid: 9cf95b36dde05df4fa2657a974d18083, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b7ef4baf50cf564d83cd91a757848bc, type: 2}
+    - target: {fileID: 7181093898878073081, guid: 9cf95b36dde05df4fa2657a974d18083, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b7ef4baf50cf564d83cd91a757848bc, type: 2}
     - target: {fileID: 7347450694892072947, guid: 9cf95b36dde05df4fa2657a974d18083, type: 3}
       propertyPath: Powers.Array.size
       value: 2
@@ -45075,6 +45091,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 955518588090293797}
     m_Modifications:
+    - target: {fileID: 1706304277276743055, guid: e41dd2b73eec03a4990ffd38287258ef, type: 3}
+      propertyPath: length
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4055985189162771171, guid: e41dd2b73eec03a4990ffd38287258ef, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: -5.80718
