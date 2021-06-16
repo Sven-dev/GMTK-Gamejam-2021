@@ -9,10 +9,12 @@ public class DeathTouch : MonoBehaviour
     {
         if (other.transform.CompareTag("Player"))
         {
+            /*
             if (PlayerController.Instance != null)
             {
                 PlayerController.Instance.PlayerReset();
             }
+            */
         }
     }
 }

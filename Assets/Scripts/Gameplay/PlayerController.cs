@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,12 +7,11 @@ public class PlayerController : MonoBehaviour
     private static PlayerController _Instance;
 
     public GameplayControls inputControls { get; private set; }
-    public Animator animator { get; private set; }
 
-    [SerializeField] private float fSpeed = 2.0f;
-    [SerializeField] private float fJumpStrength = 3.5f;
-    [SerializeField] private float GrabForce = 500;
+    [SerializeField] private float MoveSpeed = 2.0f;
+    [SerializeField] private float JumpStrength = 3.5f;
     [Space]
+    [SerializeField] private AnimationCurve MovementCurve;
     [SerializeField] private Transform PlugHolder;
     [SerializeField] private LayerMask groundMask = 0;
     [Space]
@@ -22,13 +19,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject ModelObject = null;
     [Space]
     [SerializeField] private Rigidbody Rigidbody;
+    [SerializeField] private Animator Animator;
     [Space]
     [SerializeField] private AudioSource PlugPickup;
     [SerializeField] private AudioSource PlugDrop;
 
     private Rigidbody draggedPlug = null;
     private bool isDragged = false;
-
     private Vector2 moveInput = Vector2.zero;
 
 
@@ -45,8 +42,8 @@ public class PlayerController : MonoBehaviour
         }
 
         inputControls = new GameplayControls();
-        animator = GetComponent<Animator>();
     }
+
     private void OnDestroy()
     {
         if (_Instance == this) _Instance = null;
@@ -56,6 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         inputControls.Player.Enable();
     }
+
     private void OnDisable()
     {
         inputControls.Player.Disable();
@@ -89,25 +87,19 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate()
-    {   
+    {
         //Moving
         if (moveInput.sqrMagnitude > 0.0f)
         {
             //Get movement input
-            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-
-            //Add movement speed
-            move *= fSpeed;
-
-            //Account for jumping/gravity
-            move.y = Rigidbody.velocity.y;
-
+            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y) * MoveSpeed;
+            move.y = 0;
             Rigidbody.AddRelativeForce(move);
 
             //Rotate model into move direction
             if (ModelObject != null && !isDragged)
             {
-                Vector3 temp = Rigidbody.velocity;
+                Vector3 temp = Rigidbody.velocity.normalized;
                 temp.y = 0;
                 ModelObject.transform.rotation = Quaternion.LookRotation(temp);
             }
@@ -116,15 +108,23 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    #region Button Call Functions
+    #region Jump
     private void Jump()
     {
         if (Grounded())
         {
-            Rigidbody.velocity = Vector3.up * fJumpStrength;
+            Rigidbody.velocity += Vector3.up * JumpStrength;
         }
     }
 
+    private bool Grounded()
+    {
+        Vector3 halfExtend = new Vector3(0.15f, 0.1f, 0.15f);
+        return Physics.CheckBox(transform.position, halfExtend, transform.rotation, groundMask);
+    }
+    #endregion
+
+    #region Grab
     private void Grab_Start()
     {
         draggedPlug = PlugDetector.GrabPlug();
@@ -159,6 +159,7 @@ public class PlayerController : MonoBehaviour
             PlugDrop.Play();
         }
     }
+    #endregion
 
     #region UI Related
     private void Pause()
@@ -168,35 +169,6 @@ public class PlayerController : MonoBehaviour
     private void OpenMenu()
     {
         Debug.Log("You want a Menu");
-    }
-    #endregion
-
-    #endregion
-
-    #region Public Extra Functions
-    public void PlayAnimation(string _name)
-    {
-        if (animator != null)
-        {
-
-        }
-    }
-    
-    public void PlayerReset()
-    {
-        transform.position = Vector3.up * 5;
-    }
-    #endregion
-
-    #region Private Extra Functions
-    private bool Grounded()
-    {
-        Vector3 halfExtend = new Vector3(0.15f, 0.1f, 0.15f);
-        if (Physics.CheckBox(transform.position, halfExtend, transform.rotation, groundMask))
-        {
-            return true;
-        }
-        return false;
     }
     #endregion
 }
