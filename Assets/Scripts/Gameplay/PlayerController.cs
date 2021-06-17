@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float MoveSpeed = 2.0f;
     [SerializeField] private float JumpStrength = 3.5f;
     [Space]
-    [SerializeField] private AnimationCurve MovementCurve;
     [SerializeField] private Transform PlugHolder;
     [SerializeField] private LayerMask groundMask = 0;
     [Space]
@@ -27,7 +26,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody draggedPlug = null;
     private bool isDragged = false;
     private Vector2 moveInput = Vector2.zero;
-
 
     #region Base Unity Functions
     private void Awake()
@@ -79,11 +77,21 @@ public class PlayerController : MonoBehaviour
             inputControls.Player.Menu.performed += _ => OpenMenu();
         }
     }
+    #endregion
 
+    #region Move
     // Update is called once per frame
     void Update()
     {
         moveInput = inputControls.Player.Move.ReadValue<Vector2>();
+
+        //Rotating
+        if (moveInput.sqrMagnitude > 0.0f)
+        {
+            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y) * MoveSpeed * Time.fixedDeltaTime;
+            Quaternion toRotation = Quaternion.LookRotation(move, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.fixedDeltaTime);
+        }
     }
 
     void FixedUpdate()
@@ -92,20 +100,11 @@ public class PlayerController : MonoBehaviour
         if (moveInput.sqrMagnitude > 0.0f)
         {
             //Get movement input
-            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y) * MoveSpeed;
-            move.y = 0;
-            Rigidbody.AddRelativeForce(move);
-
-            //Rotate model into move direction
-            if (ModelObject != null && !isDragged)
-            {
-                Vector3 temp = Rigidbody.velocity.normalized;
-                temp.y = 0;
-                ModelObject.transform.rotation = Quaternion.LookRotation(temp);
-            }
+            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y) * MoveSpeed * Time.fixedDeltaTime;
+            transform.position += move;
         }
-
     }
+
     #endregion
 
     #region Jump
@@ -133,9 +132,13 @@ public class PlayerController : MonoBehaviour
             PlugPickup.Play();
 
             Plug plug = draggedPlug.GetComponent<Plug>();
+            plug.Joint.connectedAnchor = (Vector3.up + Vector3.back) * 0.15f;
+
             draggedPlug.transform.parent = PlugHolder;
-            draggedPlug.transform.position = PlugHolder.position;
+            draggedPlug.transform.localPosition = Vector3.zero;
+            draggedPlug.transform.localRotation = Quaternion.Euler(Vector3.zero);
             plug.Joint.connectedBody = Rigidbody;
+
 
             if (plug != null)
             {
@@ -150,10 +153,13 @@ public class PlayerController : MonoBehaviour
         {
             Plug plug = draggedPlug.GetComponent<Plug>();
             plug.Joint.connectedBody = plug.SelfConnector;
+            plug.Joint.connectedAnchor = Vector3.zero;
+            draggedPlug.transform.eulerAngles = Vector3.zero;
 
             PlugDetector.PlugCable(draggedPlug);
 
             draggedPlug.transform.parent = plug.CableHolder;
+            draggedPlug.transform.localPosition = new Vector3(draggedPlug.transform.localPosition.x, 0, draggedPlug.transform.localPosition.z);
             draggedPlug = null;
 
             PlugDrop.Play();

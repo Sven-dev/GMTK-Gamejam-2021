@@ -9,6 +9,8 @@ public class Plug : MonoBehaviour
     [SerializeField] public Joint Joint;
     [SerializeField] public Rigidbody SelfConnector;
     [SerializeField] public Transform CableHolder;
+    [Space]
+    [SerializeField] private Rigidbody Rigidbody;
 
     public Socket socket { get; private set; }
 
@@ -30,11 +32,10 @@ public class Plug : MonoBehaviour
         {
             if (Type == SocketType.Universal || _socket.Type == SocketType.Universal || _socket.Type == Type)
             {
-                Rigidbody rb = GetComponent<Rigidbody>();
-                if (rb != null)
+                if (Rigidbody != null)
                 {
-                    rb.position = _socket.transform.position;
-                    rb.constraints = RigidbodyConstraints.FreezeAll;
+                    Rigidbody.position = _socket.transform.position;
+                    Joint.connectedBody = _socket.Rigidbody;
                 }
 
                 socket = _socket;
@@ -54,10 +55,9 @@ public class Plug : MonoBehaviour
     {
         if(socket != null)
         {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            if (rb != null)
+            if (Rigidbody != null)
             {
-                rb.constraints = RigidbodyConstraints.None;
+                Joint.connectedBody = SelfConnector;
             }
 
             Joint j = GetComponent<Joint>();

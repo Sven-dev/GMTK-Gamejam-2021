@@ -5,8 +5,9 @@ using UnityEngine;
 public class Socket : MonoBehaviour
 {
     [SerializeField] public SocketType Type;
-    [SerializeField] Transform Hole;
-    [SerializeField] Transform PlugTr;
+    [SerializeField] private Transform Hole;
+    [SerializeField] private Transform PlugTr;
+    [SerializeField] public Rigidbody Rigidbody;
     [Space]
     [SerializeField] List<Powerable> Powers = new List<Powerable>();
     [Space]

@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class CableSpawner : MonoBehaviour
 {
-    [SerializeField] private Joint plugPrefab;
-    [SerializeField] private Joint jointPrefab;
+    [SerializeField] private Joint PlugPrefab;
+    [SerializeField] private Joint CablePrefab;
     [Space]
-    [SerializeField] private Joint socket;
-    [SerializeField] private Transform parent;
+    [SerializeField] private Joint SocketJoint;
+    [SerializeField] private Transform CableHolder;
+    [SerializeField] [Range(1, 100)] private int Length = 1;
     [Space]
-    [SerializeField] [Range(1, 100)] private int length = 1;
-    [Space]
-    [SerializeField] private float jointDistance = 0.15f;
+    [SerializeField] private float JointDistance = 0.15f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,27 +22,24 @@ public class CableSpawner : MonoBehaviour
     public void SpawnJoints()
     {
         //Calculate cable length
-        int count = (int)(length / jointDistance);
+        int count = (int)(Length / JointDistance);
 
         //Spawn cable plug
-        Joint connectorB = Instantiate(plugPrefab, transform.position + (Vector3.up * jointDistance), Quaternion.identity, parent);
+        Joint connectorB = Instantiate(PlugPrefab, transform.position, Quaternion.identity, CableHolder);
         Plug plug = connectorB.GetComponent<Plug>();
-        plug.CableHolder = transform;
+        plug.CableHolder = CableHolder;
 
         //Spawn cables
-        Joint previousJoint = socket;
+        Joint previousJoint = null;
         for (int x = 0; x < count; x++)
         {
             Joint joint = Instantiate(
-                jointPrefab,
-                transform.position + (Vector3.up * jointDistance), 
+                CablePrefab,
+                transform.position, 
                 Quaternion.identity,
-                parent);
+                CableHolder);
 
-            joint.name = parent.childCount.ToString();
-
-            Rigidbody rb = joint.GetComponent<Rigidbody>();
-            previousJoint.connectedBody = rb;
+            joint.name = transform.childCount.ToString();
 
             Cable cableScript = joint.GetComponent<Cable>();
             if (cableScript != null)
@@ -54,11 +50,16 @@ public class CableSpawner : MonoBehaviour
 
             if (x == 0)
             {
-                joint.transform.Rotate(Vector3.left * 90);
-                joint.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                //Connect joint to socket
+                SocketJoint.connectedBody = joint.GetComponent<Rigidbody>();
+            }
+            else
+            {
+                //Connect joint to previous part of cable
+                previousJoint.connectedBody = joint.GetComponent<Rigidbody>();
             }
 
-            previousJoint = joint.GetComponent<Joint>();
+            previousJoint = joint;
         }
 
         //Spawn last connector (with character joint)
