@@ -10,7 +10,7 @@ public class Plug : MonoBehaviour
     [SerializeField] public Cable Cable;
     [SerializeField] public Rigidbody Rigidbody;
 
-    public Socket Socket;
+    [HideInInspector] public Socket Socket;
 
     /// <summary>
     /// Plugs the cable into the socket if it has a compatible connector
@@ -35,10 +35,10 @@ public class Plug : MonoBehaviour
     /// </summary>
     public void PullOut()
     {
+        Cable.Trippable = false;
+
         //Detach the joint from the plug
         Socket.Disconnect();
-        Socket = null;
-
-        Cable.Trippable = false;
+        Socket = null;        
     }
 }

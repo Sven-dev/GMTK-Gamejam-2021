@@ -58,6 +58,10 @@ public class Cable : MonoBehaviour
     {
         Trippable = false;
         yield return new WaitForSeconds(time);
-        Trippable = true;
+
+        if (Plug.Socket != null)
+        {
+            Trippable = true;
+        }
     }
 }
