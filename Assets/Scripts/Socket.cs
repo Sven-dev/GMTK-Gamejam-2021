@@ -4,56 +4,36 @@ using UnityEngine;
 
 public class Socket : MonoBehaviour
 {
-    [SerializeField] public SocketType Type;
-    [SerializeField] private Transform Hole;
-    [SerializeField] private Transform PlugTr;
+    [SerializeField] public Connector Type;
     [SerializeField] public Rigidbody Rigidbody;
     [Space]
-    [SerializeField] List<Powerable> Powers = new List<Powerable>();
-    [Space]
-    [SerializeField] private AudioSource PlugIn;
-    [SerializeField] private AudioSource PlugOut;
+    [SerializeField] private List<Powerable> Powers = new List<Powerable>();
 
-    public bool Plugged;
+    [HideInInspector] public bool Plugged;
 
-    public void ConnectPlug(Transform plug)
+    public void Connect()
     {
-        PlugTr = plug;
-
-        //plug.parent = Hole;
-        plug.transform.position = transform.position;
-
-        foreach(Powerable powerable in Powers)
+        Plugged = true;
+        foreach (Powerable powerable in Powers)
         {
             powerable.PowerUp();
         }
-
-        PlugIn.Play();
-        Plugged = true;
     }
 
-    public void PullPlug()
+    public void Disconnect()
     {
-        if (PlugTr != null)
-        {
-            // PlugTr.parent = null;
-            PlugTr = null;
-        }
-
+        Plugged = false;
         foreach (Powerable powerable in Powers)
         {
             powerable.PowerDown();
         }
-
-        PlugOut.Play();
-        Plugged = false;
     }
 }
 
-public enum SocketType
+public enum Connector
 {
-    Square,
-    Round,
-    Triangle,
+    Blue,
+    Red,
+    Yellow,
     Universal
 }

@@ -5,69 +5,43 @@ using UnityEngine;
 
 public class Plug : MonoBehaviour
 {
-    [SerializeField] public SocketType Type = SocketType.Universal;
+    [SerializeField] public Connector Connector = Connector.Universal;
+    [SerializeField] public Cable Cable;
+    [Space]
     [SerializeField] public Joint Joint;
     [SerializeField] public Rigidbody SelfConnector;
-    [SerializeField] public Transform CableHolder;
-    [Space]
-    [SerializeField] private Rigidbody Rigidbody;
+    [SerializeField] public Rigidbody Rigidbody;
 
-    public Socket socket { get; private set; }
+    [HideInInspector] public Socket Socket;
 
-    public bool sensitive { get; private set; }
-
-    public IEnumerator DetachSensetive()
+    /// <summary>
+    /// Plugs the cable into the socket if it has a compatible connector
+    /// </summary>
+    /// <param name="socket">The socket the cable tries to plug into</param>
+    public void PlugIn(Socket socket)
     {
-        sensitive = false;
-        yield return new WaitForSeconds(1.5f);
-        sensitive = true;
-    }
-
-    public void Connect(Socket _socket)
-    {
-        if (socket != null)
-            Disconnect();
-
-        if (_socket != null)
+        if (Connector == Connector.Universal || socket.Type == Connector.Universal || socket.Type == Connector)
         {
-            if (Type == SocketType.Universal || _socket.Type == SocketType.Universal || _socket.Type == Type)
-            {
-                if (Rigidbody != null)
-                {
-                    Rigidbody.position = _socket.transform.position;
-                    Joint.connectedBody = _socket.Rigidbody;
-                }
+            //Attach the joint to the plug
+            Joint.connectedBody = socket.Rigidbody;
+            transform.position = socket.transform.position;
 
-                socket = _socket;
-                socket.ConnectPlug(transform);
-
-                StartCoroutine(DetachSensetive());
-            }
+            //Set logic
+            Socket = socket;
+            Socket.Connect();
         }
     }
 
-    public bool IsConnected()
+    /// <summary>
+    /// Pulls the cable out of the socket
+    /// </summary>
+    public void PullOut()
     {
-        return socket != null;
-    }
+        //Detach the joint from the plug
+        Joint.connectedBody = SelfConnector;
 
-    public void Disconnect()
-    {
-        if(socket != null)
-        {
-            if (Rigidbody != null)
-            {
-                Joint.connectedBody = SelfConnector;
-            }
-
-            Joint j = GetComponent<Joint>();
-            if (j != null)
-            {
-                j.connectedMassScale = 1.0f;
-            }
-
-            socket.PullPlug();
-            socket = null;
-        }
+        //Set logic
+        Socket.Disconnect();
+        Socket = null;
     }
 }
