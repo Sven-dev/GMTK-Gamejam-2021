@@ -102,6 +102,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2455494863224074381, guid: a5afbd720e1158a4c9fb89e69151a70c, type: 3}
+      propertyPath: Type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8142085898112254445, guid: a5afbd720e1158a4c9fb89e69151a70c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -148,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8842529707688084251, guid: a5afbd720e1158a4c9fb89e69151a70c, type: 3}
       propertyPath: m_Name
-      value: Plug Blue
+      value: Blue Plug
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5afbd720e1158a4c9fb89e69151a70c, type: 3}

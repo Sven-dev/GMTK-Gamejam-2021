@@ -90,7 +90,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2572097903724941238, guid: e6b9af415073ee04f8ede0e44b3364ec, type: 3}
       propertyPath: m_Name
-      value: SocketSquare
+      value: Socket Blue
       objectReference: {fileID: 0}
     - target: {fileID: 3801056009002666898, guid: e6b9af415073ee04f8ede0e44b3364ec, type: 3}
       propertyPath: m_RootOrder
@@ -134,6 +134,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3801056009002666898, guid: e6b9af415073ee04f8ede0e44b3364ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207059891562718634, guid: e6b9af415073ee04f8ede0e44b3364ec, type: 3}
+      propertyPath: Type
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
