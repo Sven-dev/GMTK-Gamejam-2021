@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Obi;
 
 public class CableTripper : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class CableTripper : MonoBehaviour
     {
         if (other.CompareTag("Cable"))
         {
-            Cable cable = other.transform.parent.parent.GetComponent<Cable>();
+            OriginSocket cable = other.transform.parent.parent.GetComponent<OriginSocket>();
             if (cable.Plug.Socket != null)
             {
                 cable.Plug.PullOut();

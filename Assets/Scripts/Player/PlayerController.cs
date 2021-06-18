@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Jumper Jumper;
     [SerializeField] private Grabber Grabber;
 
+    [SerializeField] private OriginSocket originsocket;
+
     private GameplayControls inputControls;
 
     /// <summary>
@@ -43,6 +45,17 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Mover.MoveInput = inputControls.Player.Move.ReadValue<Vector2>();
+
+        if (inputControls.Player.temp1.ReadValue<float>() == 1)
+        {
+            print("more");
+            originsocket.IncreaseCable();
+        }
+        else if (inputControls.Player.temp2.ReadValue<float>() == 1)
+        {
+            print("less");
+            originsocket.DecreaseCable();
+        }
     }
 
     private void OnEnable()

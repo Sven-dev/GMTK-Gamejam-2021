@@ -57,6 +57,22 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""temp1"",
+                    ""type"": ""Value"",
+                    ""id"": ""ca684a0e-57b0-42ac-aa74-7db23e63a328"",
+                    ""expectedControlType"": ""Key"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""temp2"",
+                    ""type"": ""Value"",
+                    ""id"": ""d9d0e905-96d9-4bd2-b8a5-a60082b2927d"",
+                    ""expectedControlType"": ""Key"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -266,6 +282,28 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f0a0a9c-af05-4d5a-9551-c71ce2926917"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""temp1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa117836-5aea-495b-9f7a-6ff13674475d"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""temp2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -787,6 +825,8 @@ public class @GameplayControls : IInputActionCollection, IDisposable
         m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
+        m_Player_temp1 = m_Player.FindAction("temp1", throwIfNotFound: true);
+        m_Player_temp2 = m_Player.FindAction("temp2", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -853,6 +893,8 @@ public class @GameplayControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Grab;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Menu;
+    private readonly InputAction m_Player_temp1;
+    private readonly InputAction m_Player_temp2;
     public struct PlayerActions
     {
         private @GameplayControls m_Wrapper;
@@ -862,6 +904,8 @@ public class @GameplayControls : IInputActionCollection, IDisposable
         public InputAction @Grab => m_Wrapper.m_Player_Grab;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Menu => m_Wrapper.m_Player_Menu;
+        public InputAction @temp1 => m_Wrapper.m_Player_temp1;
+        public InputAction @temp2 => m_Wrapper.m_Player_temp2;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -886,6 +930,12 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                 @Menu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
                 @Menu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
                 @Menu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
+                @temp1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp1;
+                @temp1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp1;
+                @temp1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp1;
+                @temp2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp2;
+                @temp2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp2;
+                @temp2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp2;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -905,6 +955,12 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                 @Menu.started += instance.OnMenu;
                 @Menu.performed += instance.OnMenu;
                 @Menu.canceled += instance.OnMenu;
+                @temp1.started += instance.OnTemp1;
+                @temp1.performed += instance.OnTemp1;
+                @temp1.canceled += instance.OnTemp1;
+                @temp2.started += instance.OnTemp2;
+                @temp2.performed += instance.OnTemp2;
+                @temp2.canceled += instance.OnTemp2;
             }
         }
     }
@@ -1021,6 +1077,8 @@ public class @GameplayControls : IInputActionCollection, IDisposable
         void OnGrab(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
+        void OnTemp1(InputAction.CallbackContext context);
+        void OnTemp2(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

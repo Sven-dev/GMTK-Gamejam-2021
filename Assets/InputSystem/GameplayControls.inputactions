@@ -44,6 +44,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "temp1",
+                    "type": "Value",
+                    "id": "ca684a0e-57b0-42ac-aa74-7db23e63a328",
+                    "expectedControlType": "Key",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "temp2",
+                    "type": "Value",
+                    "id": "d9d0e905-96d9-4bd2-b8a5-a60082b2927d",
+                    "expectedControlType": "Key",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -253,6 +269,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0f0a0a9c-af05-4d5a-9551-c71ce2926917",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "temp1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa117836-5aea-495b-9f7a-6ff13674475d",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "temp2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -6,10 +6,7 @@ using UnityEngine;
 public class Plug : MonoBehaviour
 {
     [SerializeField] public Connector Connector = Connector.Universal;
-    [SerializeField] public Cable Cable;
-    [Space]
-    [SerializeField] public Joint Joint;
-    [SerializeField] public Rigidbody SelfConnector;
+    [SerializeField] public OriginSocket Cable;
     [SerializeField] public Rigidbody Rigidbody;
 
     [HideInInspector] public Socket Socket;
@@ -23,10 +20,8 @@ public class Plug : MonoBehaviour
         if (Connector == Connector.Universal || socket.Type == Connector.Universal || socket.Type == Connector)
         {
             //Attach the joint to the plug
-            Joint.connectedBody = socket.Rigidbody;
+            Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             transform.position = socket.transform.position;
-
-            //Set logic
             Socket = socket;
             Socket.Connect();
         }
@@ -38,9 +33,6 @@ public class Plug : MonoBehaviour
     public void PullOut()
     {
         //Detach the joint from the plug
-        Joint.connectedBody = SelfConnector;
-
-        //Set logic
         Socket.Disconnect();
         Socket = null;
     }
