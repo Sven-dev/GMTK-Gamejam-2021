@@ -5,7 +5,6 @@ using UnityEngine;
 public class Grabber : MonoBehaviour
 {
     [SerializeField] private PlugDetector PlugDetector;
-    [SerializeField] private CableTripper CableTripper;
     [SerializeField] private Transform PlugHolder;
 
     private Plug Plug = null;
@@ -35,7 +34,7 @@ public class Grabber : MonoBehaviour
         if (Plug != null)
         {
             //Detach the object from the player's back
-            Plug.transform.parent = Plug.Cable.transform;
+            Plug.transform.parent = Plug.Source.transform;
             Plug.transform.eulerAngles = Vector3.zero;
             Plug.Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 
@@ -44,7 +43,6 @@ public class Grabber : MonoBehaviour
             if (socket != null)
             {
                 Plug.PlugIn(socket);
-                CableTripper.DisableTrip();
             }
          
             Plug = null;

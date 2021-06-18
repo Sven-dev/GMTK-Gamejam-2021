@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Obi;
 
-public class OriginSocket : MonoBehaviour
+public class CableSource : MonoBehaviour
 {
     [SerializeField] private float Speed;
     [SerializeField] private ObiRope Cable;

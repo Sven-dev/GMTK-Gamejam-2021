@@ -6,10 +6,11 @@ using UnityEngine;
 public class Plug : MonoBehaviour
 {
     [SerializeField] public Connector Connector = Connector.Universal;
-    [SerializeField] public OriginSocket Cable;
+    [SerializeField] public CableSource Source;
+    [SerializeField] public Cable Cable;
     [SerializeField] public Rigidbody Rigidbody;
 
-    [HideInInspector] public Socket Socket;
+    public Socket Socket;
 
     /// <summary>
     /// Plugs the cable into the socket if it has a compatible connector
@@ -24,6 +25,8 @@ public class Plug : MonoBehaviour
             transform.position = socket.transform.position;
             Socket = socket;
             Socket.Connect();
+
+            Cable.DisableTripping();
         }
     }
 
@@ -35,5 +38,7 @@ public class Plug : MonoBehaviour
         //Detach the joint from the plug
         Socket.Disconnect();
         Socket = null;
+
+        Cable.Trippable = false;
     }
 }
