@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &927624044441344042
+--- !u!1 &1317332965
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,57 +8,60 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1844089366157084478}
-  - component: {fileID: 530346438862623543}
-  - component: {fileID: 1881299442983669335}
+  - component: {fileID: 1317332966}
+  - component: {fileID: 1317332968}
+  - component: {fileID: 1317332967}
   m_Layer: 0
-  m_Name: CableTripper
-  m_TagString: Untagged
+  m_Name: Tripping
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1844089366157084478
+--- !u!4 &1317332966
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927624044441344042}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1317332965}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2396430991808578636}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &530346438862623543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927624044441344042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dae59cbba9a9094488e2720d5e7a3866, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DisableTime: 1
-  Collider: {fileID: 1881299442983669335}
---- !u!65 &1881299442983669335
+--- !u!65 &1317332968
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927624044441344042}
+  m_GameObject: {fileID: 1317332965}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.5557129, z: 1}
-  m_Center: {x: 0, y: 2.1721506, z: 0}
+  m_Size: {x: 0.05, y: 0.05, z: 0.05}
+  m_Center: {x: 0, y: 0.1, z: -0.05}
+--- !u!114 &1317332967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317332965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 1317332968}
+  m_DistanceField: {fileID: 0}
 --- !u!1 &1862749037913577547
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,6 +78,7 @@ GameObject:
   - component: {fileID: 5780201042583605273}
   - component: {fileID: 3671402354130183852}
   - component: {fileID: 6739735893758297256}
+  - component: {fileID: 31226397}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -95,8 +99,8 @@ Transform:
   m_Children:
   - {fileID: 2878923945578304344}
   - {fileID: 8034509929165306370}
-  - {fileID: 1844089366157084478}
   - {fileID: 1355654797469094972}
+  - {fileID: 1317332966}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -160,7 +164,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlugDetector: {fileID: 568871163802982434}
-  CableTripper: {fileID: 530346438862623543}
   PlugHolder: {fileID: 8034509929165306370}
 --- !u!54 &5780201042583605273
 Rigidbody:
@@ -210,6 +213,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &31226397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862749037913577547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62359d80fdc0e4315ab6331b78ec5b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kinematicForParticles: 0
 --- !u!1 &5393731647398071316
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +322,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 28cba742d2ad6b443ae2b0a27ead6968, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28cba742d2ad6b443ae2b0a27ead6968, type: 3}
       propertyPath: m_LocalScale.x

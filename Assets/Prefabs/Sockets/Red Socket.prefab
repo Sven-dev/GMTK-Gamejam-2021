@@ -90,7 +90,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2572097903724941238, guid: e6b9af415073ee04f8ede0e44b3364ec, type: 3}
       propertyPath: m_Name
-      value: Socket Red
+      value: Red Socket
       objectReference: {fileID: 0}
     - target: {fileID: 3801056009002666898, guid: e6b9af415073ee04f8ede0e44b3364ec, type: 3}
       propertyPath: m_RootOrder
@@ -98,15 +98,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3801056009002666898, guid: e6b9af415073ee04f8ede0e44b3364ec, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3801056009002666898, guid: e6b9af415073ee04f8ede0e44b3364ec, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3801056009002666898, guid: e6b9af415073ee04f8ede0e44b3364ec, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3801056009002666898, guid: e6b9af415073ee04f8ede0e44b3364ec, type: 3}
       propertyPath: m_LocalPosition.x
