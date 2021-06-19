@@ -43,6 +43,14 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Camera"",
+                    ""type"": ""Value"",
+                    ""id"": ""1d3bd622-7284-477c-ae65-11e5bfcf02f4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""a06cb896-4640-4e98-9485-e4105b52c4f4"",
@@ -55,22 +63,6 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""e8a18a92-6638-4187-a4ba-f2f024c27b4d"",
                     ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""temp1"",
-                    ""type"": ""Value"",
-                    ""id"": ""ca684a0e-57b0-42ac-aa74-7db23e63a328"",
-                    ""expectedControlType"": ""Key"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""temp2"",
-                    ""type"": ""Value"",
-                    ""id"": ""d9d0e905-96d9-4bd2-b8a5-a60082b2927d"",
-                    ""expectedControlType"": ""Key"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -287,25 +279,69 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0f0a0a9c-af05-4d5a-9551-c71ce2926917"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""id"": ""8511dd14-2945-4a1c-bfcc-b6296811fdd3"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""temp1"",
+                    ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""fa117836-5aea-495b-9f7a-6ff13674475d"",
-                    ""path"": ""<Keyboard>/k"",
+                    ""name"": ""2D Vector"",
+                    ""id"": ""c397ddc3-b0d1-4714-9116-52cc72e82ec4"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""temp2"",
-                    ""isComposite"": false,
+                    ""action"": ""Camera"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""bcec677c-2a3b-42ac-9b5a-efd02f5b0b88"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""18984993-80f7-432e-b75b-299879492fbf"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""ec07cc2b-74be-4bb2-aa30-0fcde603d61d"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""25e0baf0-3c3c-4c43-856f-d87d838e4567"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -823,10 +859,9 @@ public class @GameplayControls : IInputActionCollection, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
+        m_Player_Camera = m_Player.FindAction("Camera", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
-        m_Player_temp1 = m_Player.FindAction("temp1", throwIfNotFound: true);
-        m_Player_temp2 = m_Player.FindAction("temp2", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -891,10 +926,9 @@ public class @GameplayControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Grab;
+    private readonly InputAction m_Player_Camera;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Menu;
-    private readonly InputAction m_Player_temp1;
-    private readonly InputAction m_Player_temp2;
     public struct PlayerActions
     {
         private @GameplayControls m_Wrapper;
@@ -902,10 +936,9 @@ public class @GameplayControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Grab => m_Wrapper.m_Player_Grab;
+        public InputAction @Camera => m_Wrapper.m_Player_Camera;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Menu => m_Wrapper.m_Player_Menu;
-        public InputAction @temp1 => m_Wrapper.m_Player_temp1;
-        public InputAction @temp2 => m_Wrapper.m_Player_temp2;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -924,18 +957,15 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                 @Grab.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGrab;
                 @Grab.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGrab;
                 @Grab.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGrab;
+                @Camera.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamera;
+                @Camera.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamera;
+                @Camera.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamera;
                 @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Menu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
                 @Menu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
                 @Menu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
-                @temp1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp1;
-                @temp1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp1;
-                @temp1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp1;
-                @temp2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp2;
-                @temp2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp2;
-                @temp2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTemp2;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -949,18 +979,15 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                 @Grab.started += instance.OnGrab;
                 @Grab.performed += instance.OnGrab;
                 @Grab.canceled += instance.OnGrab;
+                @Camera.started += instance.OnCamera;
+                @Camera.performed += instance.OnCamera;
+                @Camera.canceled += instance.OnCamera;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
                 @Menu.started += instance.OnMenu;
                 @Menu.performed += instance.OnMenu;
                 @Menu.canceled += instance.OnMenu;
-                @temp1.started += instance.OnTemp1;
-                @temp1.performed += instance.OnTemp1;
-                @temp1.canceled += instance.OnTemp1;
-                @temp2.started += instance.OnTemp2;
-                @temp2.performed += instance.OnTemp2;
-                @temp2.canceled += instance.OnTemp2;
             }
         }
     }
@@ -1075,10 +1102,9 @@ public class @GameplayControls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);
+        void OnCamera(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
-        void OnTemp1(InputAction.CallbackContext context);
-        void OnTemp2(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

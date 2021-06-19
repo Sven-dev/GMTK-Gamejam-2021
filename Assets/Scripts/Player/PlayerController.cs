@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Mover Mover;
     [SerializeField] private Jumper Jumper;
     [SerializeField] private Grabber Grabber;
+    [SerializeField] private CameraRotator CameraRotator;
 
     private GameplayControls inputControls;
 
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Mover.MoveInput = inputControls.Player.Move.ReadValue<Vector2>();
+        CameraRotator.RotateInput = inputControls.Player.Camera.ReadValue<Vector2>();
     }
 
     private void OnEnable()

@@ -119,6 +119,7 @@ MonoBehaviour:
   Mover: {fileID: 9165212478988852982}
   Jumper: {fileID: 500777943767724775}
   Grabber: {fileID: 7957543710020622782}
+  CameraRotator: {fileID: 0}
 --- !u!114 &9165212478988852982
 MonoBehaviour:
   m_ObjectHideFlags: 0
