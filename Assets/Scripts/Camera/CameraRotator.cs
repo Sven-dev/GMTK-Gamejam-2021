@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraRotator : MonoBehaviour
 {
     [SerializeField] private float Speed;
-    [SerializeField] private AnimationCurve SpeedCurve;
     [Space]
     [SerializeField] private Transform Horizontal;
     [SerializeField] private Transform Vertical;
@@ -18,15 +17,14 @@ public class CameraRotator : MonoBehaviour
     void Update()
     {
         Multiplier = SetSpeedMultiplier(Multiplier, RotateInput);
-
         if (Multiplier > 0)
         {
-            if (RotateInput.x != 0)
+            if (Mathf.Abs(RotateInput.x) > 0.25f)
             {
                 RotateHorizontal();
             }
 
-            if (RotateInput.y != 0)
+            if (Mathf.Abs(RotateInput.y) > 0.25f)
             {
                 RotateVertical();
             }
@@ -74,7 +72,7 @@ public class CameraRotator : MonoBehaviour
     private float SetSpeedMultiplier(float s, Vector2 input)
     {
         //Speed up or down depending on if the buttons are being pressed
-        if (RotateInput != Vector2.zero)
+        if (RotateInput.sqrMagnitude > 0.25f)
         {
             s += 2 * Time.deltaTime;
         }
