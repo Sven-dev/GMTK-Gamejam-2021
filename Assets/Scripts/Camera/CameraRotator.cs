@@ -11,6 +11,8 @@ public class CameraRotator : MonoBehaviour
 
     [HideInInspector] public Vector2 RotateInput;
 
+    [SerializeField] private AudioSource RotateSfx;
+
     private float Multiplier = 0;
 
     // Update is called once per frame
@@ -29,6 +31,15 @@ public class CameraRotator : MonoBehaviour
                 RotateVertical();
             }
         }
+
+
+        if (!RotateSfx.isPlaying && RotateInput.sqrMagnitude > 0.25f)
+        {
+            RotateSfx.Play();
+        }
+
+        RotateSfx.pitch = 0.75f + Multiplier;
+
     }
 
     private void RotateHorizontal()
@@ -37,11 +48,11 @@ public class CameraRotator : MonoBehaviour
         Vector3 direction = Vector3.zero;
         if (RotateInput.x > 0)
         {
-            direction = Vector3.down;
+            direction = Vector3.up;
         }
         else if (RotateInput.x < 0)
         {
-            direction = Vector3.up;
+            direction = Vector3.down;
         }
 
         Horizontal.Rotate(direction * Speed * Multiplier * Time.deltaTime);
@@ -53,11 +64,11 @@ public class CameraRotator : MonoBehaviour
         Vector3 direction = Vector3.zero;
         if (RotateInput.y > 0)
         {
-            direction = Vector3.right;
+            direction = Vector3.left;
         }
         else if (RotateInput.y < 0)
         {
-            direction = Vector3.left;
+            direction = Vector3.right;
         }
 
         Vertical.Rotate(direction * Speed * Multiplier * Time.deltaTime);
