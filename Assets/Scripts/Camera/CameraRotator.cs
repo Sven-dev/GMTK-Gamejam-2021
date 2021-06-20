@@ -18,82 +18,34 @@ public class CameraRotator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Multiplier = SetSpeedMultiplier(Multiplier, RotateInput);
-        if (Multiplier > 0)
+        if (Mathf.Abs(RotateInput.x) > 0.1f)
         {
-            if (Mathf.Abs(RotateInput.x) > 0.25f)
-            {
-                RotateHorizontal();
-            }
-
-            if (Mathf.Abs(RotateInput.y) > 0.25f)
-            {
-                RotateVertical();
-            }
+            RotateHorizontal(RotateInput.x);
         }
 
+        if (Mathf.Abs(RotateInput.y) > 0.1f)
+        {
+            RotateVertical(RotateInput.y);
+        }
 
-        if (!RotateSfx.isPlaying && RotateInput.sqrMagnitude > 0.25f)
+        if (!RotateSfx.isPlaying && RotateInput.sqrMagnitude > 0.1f)
         {
             RotateSfx.Play();
         }
 
-        RotateSfx.pitch = 0.75f + Multiplier;
-
+        RotateSfx.pitch = 0.75f + RotateInput.sqrMagnitude;
     }
 
-    private void RotateHorizontal()
+    private void RotateHorizontal(float amount)
     {
-        //Rotate left and right
-        Vector3 direction = Vector3.zero;
-        if (RotateInput.x > 0)
-        {
-            direction = Vector3.up;
-        }
-        else if (RotateInput.x < 0)
-        {
-            direction = Vector3.down;
-        }
-
-        Horizontal.Rotate(direction * Speed * Multiplier * Time.deltaTime);
+        Horizontal.Rotate(Vector3.up * amount * Speed * Time.deltaTime);
     }
 
-    private void RotateVertical()
+    private void RotateVertical(float amount)
     {
-        //Rotate up and down
-        Vector3 direction = Vector3.zero;
-        if (RotateInput.y > 0)
-        {
-            direction = Vector3.left;
-        }
-        else if (RotateInput.y < 0)
-        {
-            direction = Vector3.right;
-        }
-
-        Vertical.Rotate(direction * Speed * Multiplier * Time.deltaTime);
+        Vertical.Rotate(Vector3.right * amount * Speed * Time.deltaTime);
 
         //Clamp the rotation to not go out of bounds
         Vertical.localEulerAngles = new Vector3(Mathf.Clamp(Vertical.localEulerAngles.x, 10, 80), 0, 0);
-    }
-
-    /// <summary>
-    /// Sets the current speed based on what is being input
-    /// </summary>
-    private float SetSpeedMultiplier(float s, Vector2 input)
-    {
-        //Speed up or down depending on if the buttons are being pressed
-        if (RotateInput.sqrMagnitude > 0.25f)
-        {
-            s += 2 * Time.deltaTime;
-        }
-        else
-        {
-            s -= 2 * Time.deltaTime;
-        }
-
-        //Make sure the speed value stays between 0 and 1
-        s = Mathf.Clamp(s, 0, 1);
-        return s;
     }
 }
