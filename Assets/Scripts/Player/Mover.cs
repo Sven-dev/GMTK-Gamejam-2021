@@ -6,7 +6,6 @@ public class Mover : MonoBehaviour
 {
     [SerializeField] private float Speed = 2.0f;
     [SerializeField] private Rigidbody Rigidbody;
-    [SerializeField] private CameraRotator Camera;
 
     [HideInInspector] public Vector2 MoveInput = Vector2.zero;
 

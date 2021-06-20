@@ -39,12 +39,17 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Get controller input and send it to Mover
+    /// Get controller input and send it the relevant components
     /// </summary>
     private void Update()
     {
-        Mover.MoveInput = inputControls.Player.Move.ReadValue<Vector2>();
         CameraRotator.RotateInput = inputControls.Player.Camera.ReadValue<Vector2>();
+
+        //Calculate the camera rotation into the movement input
+        Vector3 input = inputControls.Player.Move.ReadValue<Vector2>();
+        input = Quaternion.AngleAxis(CameraRotator.transform.eulerAngles.y, Vector3.back) * input;
+
+        Mover.MoveInput = input;
     }
 
     private void OnEnable()
