@@ -1,53 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using System;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] private List<AudioSource> Sources;
+    public static AudioManager Instance;
 
-    public AudioManager Instance;
+    [SerializeField] private Sound[] Sounds;
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
-    }
 
-    public void Play(AudioClip clip)
-    {
-        foreach(AudioSource source in Sources)
+        foreach (Sound sound in Sounds)
         {
-            if (!source.isPlaying)
-            {
-                source.PlayOneShot(clip);
-                return;
-            }
+            sound.Source = gameObject.AddComponent<AudioSource>();
+            sound.Source.clip = sound.clip;
+
+            sound.Source.volume = sound.Volume;
+            sound.Source.pitch = sound.Pitch;
+            sound.Source.playOnAwake = sound.PlayOnAwake;
+            sound.Source.loop = sound.Loop;
+        }
+    }
+
+    public void Play(string name)
+    {
+        Sound sound = FindSound(name);
+        sound.Source.Play();
+    }
+
+    public void Stop(string name)
+    {
+        Sound sound = FindSound(name);
+        sound.Source.Stop();
+    }
+
+    public void SetPitch(string name, float pitch)
+    {
+        Sound sound = FindSound(name);
+        sound.Source.pitch = pitch;
+    }
+
+    public void SetLoop(string name, bool loop)
+    {
+        Sound sound = FindSound(name);
+        sound.Source.loop = loop;
+    }
+
+    private Sound FindSound(string name)
+    {
+        Sound sound = Array.Find(Sounds, sound => sound.Name == name);
+
+        if (sound == null)
+        {
+            Debug.LogWarning("Warning: Sound " + name + " was not found!");
         }
 
-        AudioSource newSource = AddNewSource();
-        newSource.PlayOneShot(clip);
-    }
-
-    private AudioSource AddNewSource()
-    {
-        AudioSource source = gameObject.AddComponent<AudioSource>();
-        Sources.Add(source);
-        return source;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Sources.Add(gameObject.AddComponent<AudioSource>());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return sound;
     }
 }
