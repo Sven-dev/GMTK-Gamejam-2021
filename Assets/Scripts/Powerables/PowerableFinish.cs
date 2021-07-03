@@ -19,7 +19,7 @@ public class PowerableFinish : Powerable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && isPowered)
+        if (other.CompareTag("Player") && Powered)
         {
             ActivateEnd();
         }

@@ -23,9 +23,7 @@ public class MultiPowerStation : Powerable
 
     private void CheckPower()
     {
-        isPowered = PowerNeed == PowerNeedMax;
-
-        PowerVisualCues();
+        Powered = PowerNeed == PowerNeedMax;
     }
 
 }

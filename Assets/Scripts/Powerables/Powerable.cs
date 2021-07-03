@@ -2,31 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Powerable : MonoBehaviour
+public abstract class Powerable : MonoBehaviour
 {
-    [SerializeField] private GameObject[] VisualCues;
-
-    protected bool isPowered = false;
+    protected bool Powered = false;
 
     public virtual void PowerUp()
     {
-        isPowered = true;
-        PowerVisualCues();
-    }
-    public virtual void PowerDown()
-    {
-        isPowered = false;
-        PowerVisualCues();
+        Powered = true;
     }
 
-    protected void PowerVisualCues()
+    public virtual void PowerDown()
     {
-        if (VisualCues != null && VisualCues.Length > 0)
-        {
-            foreach (GameObject visualCue in VisualCues)
-            {
-                visualCue.SetActive(isPowered);
-            }
-        }
+        Powered = false;
     }
 }
