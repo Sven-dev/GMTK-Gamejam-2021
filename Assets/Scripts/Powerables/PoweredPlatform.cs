@@ -22,7 +22,7 @@ public class PoweredPlatform : Powerable
         float progress = 0;
         while(true)
         {
-            if (isPowered)
+            if (Powered)
             {
                 Platform.position = Vector3.Lerp(Beginning.position, End.position, progress);
 
