@@ -35,5 +35,6 @@ public enum Connector
     Blue,
     Red,
     Yellow,
+    Green,
     Universal
 }

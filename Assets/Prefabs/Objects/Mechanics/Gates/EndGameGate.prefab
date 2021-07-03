@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6669139617435605764}
-  - component: {fileID: 3813089455871589909}
+  - component: {fileID: 597368164}
   m_Layer: 0
   m_Name: EndGameGate
   m_TagString: Untagged
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3876789492255105649}
-  m_LocalRotation: {x: -0, y: 0.60876125, z: -0, w: 0.7933535}
+  m_LocalRotation: {x: 0, y: 0.60876137, z: 0, w: 0.7933534}
   m_LocalPosition: {x: -4, y: 0.5, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -64,7 +64,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 75, z: 0}
---- !u!114 &3813089455871589909
+--- !u!114 &597368164
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,12 +73,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3876789492255105649}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93bb814026bfb074695b5211fe0aba17, type: 3}
+  m_Script: {fileID: 11500000, guid: c235a7daa78a8794d8029543d7ed3154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VisualCues:
-  - {fileID: 8766084209028637715}
-  - {fileID: 6789959505210520547}
+  PortalAnimation: {fileID: 8766084209028637715}
+  LightSource: {fileID: 7374438349727840203}
 --- !u!65 &7810134606272266716
 BoxCollider:
   m_ObjectHideFlags: 0
