@@ -11,13 +11,12 @@ public class CameraRotator : MonoBehaviour
 
     [HideInInspector] public Vector2 RotateInput;
 
-    [SerializeField] private AudioSource RotateSfx;
-
-    private float Multiplier = 0;
+    private bool Rotating = false;
 
     // Update is called once per frame
     void Update()
     {
+        RotateInput = RotateInput.normalized;
         if (Mathf.Abs(RotateInput.x) > 0.1f)
         {
             RotateHorizontal(RotateInput.x);
@@ -28,12 +27,23 @@ public class CameraRotator : MonoBehaviour
             RotateVertical(RotateInput.y);
         }
 
-        if (!RotateSfx.isPlaying && RotateInput.sqrMagnitude > 0.1f)
+        //Play a sound effect while the camera is rotating
+        if (RotateInput.sqrMagnitude > 0.1f)
         {
-            RotateSfx.Play();
-        }
+            if (!Rotating)
+            {
+                Rotating = true;
+                AudioManager.Instance.SetLoop("CameraRotate", true);
+                AudioManager.Instance.Play("CameraRotate");
+            }
 
-        RotateSfx.pitch = 0.75f + RotateInput.sqrMagnitude;
+            AudioManager.Instance.SetPitch("CameraRotate", 0.75f + RotateInput.sqrMagnitude);
+        }
+        else if (Rotating)
+        {
+            Rotating = false;
+            AudioManager.Instance.SetLoop("CameraRotate", false);
+        }
     }
 
     private void RotateHorizontal(float amount)
