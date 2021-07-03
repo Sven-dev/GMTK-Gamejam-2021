@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Mover Mover;
     [SerializeField] private Jumper Jumper;
     [SerializeField] private Grabber Grabber;
+    [SerializeField] private Puncher Puncher;
     [SerializeField] private CameraRotator CameraRotator;
 
     private GameplayControls inputControls;
@@ -32,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
             inputControls.Player.Grab.started += _ => Grabber.Grab();
             inputControls.Player.Grab.canceled += _ => Grabber.LetGo();
+
+            inputControls.Player.Punch.performed += _ => Puncher.Punch();
 
             inputControls.Player.Pause.performed += _ => Pause();
             inputControls.Player.Menu.performed += _ => OpenMenu();
