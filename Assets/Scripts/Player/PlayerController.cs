@@ -6,9 +6,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Mover Mover;
     [SerializeField] private Jumper Jumper;
-    [SerializeField] private Grabber Grabber;
-    [SerializeField] private Puncher Puncher;
-    [SerializeField] private CameraRotator CameraRotator;
+    [SerializeField] private CameraController CameraController;
 
     private GameplayControls inputControls;
 
@@ -31,11 +29,6 @@ public class PlayerController : MonoBehaviour
         {
             inputControls.Player.Jump.performed += _ => Jumper.Jump();
 
-            inputControls.Player.Grab.started += _ => Grabber.Grab();
-            inputControls.Player.Grab.canceled += _ => Grabber.LetGo();
-
-            inputControls.Player.Punch.performed += _ => Puncher.Punch();
-
             inputControls.Player.Pause.performed += _ => Pause();
             inputControls.Player.Menu.performed += _ => OpenMenu();
         }
@@ -46,11 +39,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        CameraRotator.RotateInput = inputControls.Player.Camera.ReadValue<Vector2>();
+        CameraController.RotateInput = inputControls.Player.Camera.ReadValue<Vector2>();
 
         //Calculate the camera rotation into the movement input
         Vector3 input = inputControls.Player.Move.ReadValue<Vector2>();
-        input = Quaternion.AngleAxis(CameraRotator.transform.eulerAngles.y, Vector3.back) * input;
+        input = Quaternion.AngleAxis(CameraController.GetHorizontalRotation(), Vector3.back) * input;
 
         Mover.MoveInput = input;
     }
