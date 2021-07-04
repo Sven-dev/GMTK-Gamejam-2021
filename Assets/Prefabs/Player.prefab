@@ -120,6 +120,7 @@ MonoBehaviour:
   Mover: {fileID: 9165212478988852982}
   Jumper: {fileID: 500777943767724775}
   Grabber: {fileID: 7957543710020622782}
+  Puncher: {fileID: 7849968895802318113}
   CameraRotator: {fileID: 0}
 --- !u!114 &9165212478988852982
 MonoBehaviour:
@@ -133,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d4d1a7ad4e44f499c0f40af8622a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  Speed: 1.5
   Rigidbody: {fileID: 5780201042583605273}
   MoveInput: {x: 0, y: 0}
 --- !u!114 &500777943767724775
@@ -151,7 +152,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  JumpStrength: 3.5
+  JumpStrength: 7
   Rigidbody: {fileID: 5780201042583605273}
 --- !u!114 &7957543710020622782
 MonoBehaviour:
@@ -179,6 +180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c1b927f7a7500428285abe0024c84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Punchables:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!65 &3671402354130183852
 BoxCollider:
   m_ObjectHideFlags: 0

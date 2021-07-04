@@ -6,25 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Prototype/MenuScene.unity
-    guid: d643e9c0226e3af47a6e91a6c1de45bc
+    path: Assets/Scenes/PunchPrototype/MainMenu.unity
+    guid: 4dbd101b94063504d8ad67a97258c4b1
   - enabled: 1
-    path: Assets/Scenes/ToadLevel.unity
-    guid: 2d15138495228df43becacfca594feb9
-  - enabled: 1
-    path: Assets/Scenes/AmongusLevel.unity
-    guid: c1aef1ca183b9b343a020b9ed71910da
-  - enabled: 1
-    path: Assets/Scenes/Prototype/Scene_Lvl_1.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/Prototype/Scene_Lvl_2.unity
-    guid: a5edfd1a5231e40488c2e0d5cbde6c1c
-  - enabled: 1
-    path: Assets/Scenes/Prototype/Scene_Lvl_3.unity
-    guid: 29fba2bd38737de478ac143e63dab204
-  - enabled: 1
-    path: Assets/Scenes/Temp.unity
-    guid: b97348a48fa01e64ba44c1377dd295a1
+    path: Assets/Scenes/PunchPrototype/PunchLevel.unity
+    guid: a5018aa56e0e796469e7bc476b1ea835
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 916cca3ef71c58747bf0a1f68229d601, type: 2}

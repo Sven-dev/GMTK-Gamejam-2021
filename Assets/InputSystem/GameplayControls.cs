@@ -167,7 +167,7 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1dd6316f-f3e5-43f4-af99-5017d74ecb7e"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -233,7 +233,7 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b413de43-a7eb-4ec0-ab36-04ada894907b"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -365,7 +365,7 @@ public class @GameplayControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cce4e8ea-7a07-48b7-98d5-2ab5abe911e8"",
-                    ""path"": ""<Keyboard>/ctrl"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
