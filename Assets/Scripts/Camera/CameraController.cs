@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     [Space]
     [SerializeField] private Transform Target;
 
-    [HideInInspector] public Vector2 RotateInput;
+    [HideInInspector] public Vector2 RotateInput = new Vector2(Screen.width/2, Screen.height/2);
 
     private bool Rotating = false;
 

@@ -7,16 +7,16 @@ public class Mover : MonoBehaviour
     [SerializeField] private float Speed = 2.0f;
     [SerializeField] private Rigidbody Rigidbody;
 
-    [HideInInspector] public Vector2 MoveInput = Vector2.zero;
+    [HideInInspector] public Vector2 Input = Vector2.zero;
 
     /// <summary>
     /// Rotate the character towards input direction
     /// </summary>
     void Update()
     {
-        if (MoveInput.sqrMagnitude > 0.25f)
+        if (Input.sqrMagnitude > 0.25f)
         {
-            Vector3 move = new Vector3(MoveInput.x, 0, MoveInput.y) * Speed * Time.fixedDeltaTime;
+            Vector3 move = new Vector3(Input.x, 0, Input.y) * Speed * Time.fixedDeltaTime;
             Quaternion toRotation = Quaternion.LookRotation(move, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.fixedDeltaTime);
         }
@@ -27,9 +27,9 @@ public class Mover : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if (MoveInput.sqrMagnitude > 0.25f)
+        if (Input.sqrMagnitude > 0.25f)
         {
-            Vector3 move = new Vector3(MoveInput.x, 0, MoveInput.y) * Speed * Time.fixedDeltaTime;
+            Vector3 move = new Vector3(Input.x, 0, Input.y) * Speed * Time.fixedDeltaTime;
             transform.position += move;
         }
     }
