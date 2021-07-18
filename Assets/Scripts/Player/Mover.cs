@@ -14,7 +14,7 @@ public class Mover : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.sqrMagnitude > 0.25f)
+        if (Input != Vector2.zero)
         {
             Vector3 move = new Vector3(Input.x, 0, Input.y) * Speed * Time.fixedDeltaTime;
             Quaternion toRotation = Quaternion.LookRotation(move, Vector3.up);
@@ -27,10 +27,7 @@ public class Mover : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if (Input.sqrMagnitude > 0.25f)
-        {
-            Vector3 move = new Vector3(Input.x, 0, Input.y) * Speed * Time.fixedDeltaTime;
-            transform.position += move;
-        }
+        Vector3 move = new Vector3(Input.x, 0, Input.y) * Speed * Time.fixedDeltaTime;
+        transform.position += move;
     }
 }

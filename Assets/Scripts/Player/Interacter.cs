@@ -5,11 +5,25 @@ using UnityEngine;
 public class Interacter : MonoBehaviour
 {
     [HideInInspector] public Interactable Object;
-    [HideInInspector] public Vector2 Input;
-
-    public void Interact()
+    public Vector2 Input 
     {
-        Object.Interact();
+        set
+        {
+            if (Object != null)
+            {
+                Object.Input = value;
+            }
+        }
+    }
+
+    public void StartInteract()
+    {
+        Object.StartInteract();
+    }
+
+    public void StopInteract()
+    {
+        Object.StopInteract();
     }
 
     public bool Interactable()
@@ -26,7 +40,8 @@ public class Interacter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Object = other.GetComponent<Interactable>();
+        print(other.name);
+        Object = other.transform.GetComponent<Interactable>();
     }
 
     private void OnTriggerExit(Collider other)

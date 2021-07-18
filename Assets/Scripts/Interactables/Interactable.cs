@@ -6,7 +6,9 @@ public abstract class Interactable : MonoBehaviour
 {
     [HideInInspector] public Vector2 Input;
 
-    public abstract void Interact();
+    public abstract void StartInteract();
+
+    public abstract void StopInteract();
 
     private void OnTriggerEnter(Collider other)
     {
