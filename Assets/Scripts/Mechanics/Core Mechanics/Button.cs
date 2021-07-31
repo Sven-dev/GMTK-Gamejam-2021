@@ -2,25 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class button : Interactable
+public class Button : MonoBehaviour
 {
     [SerializeField] private Transform Block;
     [SerializeField] private Transform MoveTo;
 
-    private bool Interacted = false;
+    private bool Pressed = false;
 
-    public override void StartInteract()
+    public void Press()
     {
-        if (!Interacted)
-        {
-            Interacted = true;
-            StartCoroutine(_Move());
-        }
-    }
-
-    public override void StopInteract()
-    {
-        //Doesn't need any functionality
+        Pressed = true;
+        StartCoroutine(_Move());
     }
 
     private IEnumerator _Move()
@@ -35,6 +27,14 @@ public class button : Interactable
 
             progress += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!Pressed)
+        {
+            Press();
         }
     }
 }
