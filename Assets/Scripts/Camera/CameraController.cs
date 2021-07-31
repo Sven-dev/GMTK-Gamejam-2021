@@ -12,36 +12,26 @@ public class CameraController : MonoBehaviour
     [Space]
     [SerializeField] private Transform Target;
 
-    [HideInInspector] public Vector2 RotateInput = new Vector2(Screen.width/2, Screen.height/2);
+    public Vector2 RotateInput = Vector2.zero;
 
     private bool Rotating = false;
 
     void Update()
     {
         transform.position = Target.position;
-
         bool rotating = false;
-        if (RotateInput.y >= Screen.height - BorderThickness)
+
+        if (RotateInput.x != 0)
         {
-            RotateVertical(1);
-            rotating = true;
-        }
-        else if (RotateInput.y <= BorderThickness)
-        {
-            RotateVertical(-1);
+            RotateHorizontal(RotateInput.x);
             rotating = true;
         }
 
-        if (RotateInput.x >= Screen.width - BorderThickness)
+        if (RotateInput.y != 0)
         {
-            RotateHorizontal(1);
+            RotateVertical(RotateInput.y);
             rotating = true;
-        }
-        else if (RotateInput.x <= BorderThickness)
-        {
-            RotateHorizontal(-1);
-            rotating = true;
-        }
+        }              
 
         //Play a sound effect while the camera is rotating
         if (Rotating != rotating)
