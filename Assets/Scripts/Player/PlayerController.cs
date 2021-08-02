@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Mover Mover;
     [SerializeField] private Jumper Jumper;
     [SerializeField] private Interacter Interacter;
+    [SerializeField] private Climber Climber;
     [SerializeField] private CameraController CameraController;
     [Space][Range(0.00f, 1.00f)]
     [SerializeField] private float Deadzone = 0.25f;
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
         CameraController.RotateInput = Input.Camera.Move.ReadValue<Vector2>();
 
         //Get the input from WASD or the left stick
-        Vector3 input = Input.Player.Move.ReadValue<Vector2>();
+        Vector2 input = Input.Player.Move.ReadValue<Vector2>();
         switch (State)
         {
             case ControlState.Moving:
@@ -62,6 +63,10 @@ public class PlayerController : MonoBehaviour
 
             case ControlState.Interacting:
                 Interact(input);
+                break;
+
+            case ControlState.Climbing:
+                Climb(input);
                 break;
 
             default:
@@ -87,7 +92,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Send the input to the interactable object
+    /// Send the input to the interacter, which sends it to the interactable object
     /// </summary>
     private void Interact(Vector2 input)
     {
@@ -98,6 +103,21 @@ public class PlayerController : MonoBehaviour
         else
         {
             Interacter.Input = Vector2.zero;
+        }
+    }
+
+    /// <summary>
+    /// Send the input to the climber
+    /// </summary>
+    private void Climb(Vector2 input)
+    {
+        if (input.sqrMagnitude > Deadzone)
+        {
+            Climber.Input = input;
+        }
+        else
+        {
+            Climber.Input = Vector2.zero;
         }
     }
 
@@ -113,9 +133,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Interacter.Interactable())
         {
+            Mover.Input = Vector3.zero;
             State = ControlState.Interacting;
             Interacter.StartInteract();
-            Mover.Input = Vector3.zero;
         }
     }
 
@@ -126,6 +146,19 @@ public class PlayerController : MonoBehaviour
             State = ControlState.Moving;
             Interacter.StopInteract();
         }
+    }
+
+    public void StartClimb()
+    {
+        Mover.Input = Vector3.zero;
+        State = ControlState.Climbing;
+        Climber.StartClimb(Input.Player.Move.ReadValue<Vector2>());
+    }
+
+    public void StopClimb()
+    {
+        Climber.StopClimb();
+        State = ControlState.Moving;
     }
 }
 
