@@ -18,7 +18,7 @@ public class Jumper : MonoBehaviour
 
     private bool Grounded()
     {
-        Vector3 halfExtend = new Vector3(0.15f, 0.1f, 0.15f);
+        Vector3 halfExtend = new Vector3(0.00f, 0.1f, 0.00f);
         return Physics.CheckBox(transform.position, halfExtend, transform.rotation, groundMask);
     }
 }
