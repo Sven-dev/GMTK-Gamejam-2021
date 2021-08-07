@@ -11,10 +11,12 @@ public class RotatingPlatform : MonoBehaviour
     {
         transform.Rotate(Vector3.up * Direction * Speed * Time.fixedDeltaTime);
 
+        /*
         foreach (Transform item in transform)
         {
             item.Translate(Vector3.up * Direction * Speed * Time.fixedDeltaTime, transform);
         }
+        */
     }
 
     private void OnTriggerEnter(Collider other)
