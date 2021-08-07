@@ -2847,6 +2847,18 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 688675610491847727, guid: a7d6ab09063f4ad41a14989097225b2a, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.16981131
+      objectReference: {fileID: 0}
+    - target: {fileID: 688675610491847727, guid: a7d6ab09063f4ad41a14989097225b2a, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 688675610491847727, guid: a7d6ab09063f4ad41a14989097225b2a, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.12786148
+      objectReference: {fileID: 0}
     - target: {fileID: 688675611565803790, guid: a7d6ab09063f4ad41a14989097225b2a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4055,7 +4067,7 @@ GameObject:
   - component: {fileID: 2019065136}
   - component: {fileID: 2019065135}
   - component: {fileID: 2019065139}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4503,6 +4515,10 @@ PrefabInstance:
     - target: {fileID: 2124366951, guid: 879fe33d36cb7e245a995339a4313074, type: 3}
       propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 500777943767724775, guid: 879fe33d36cb7e245a995339a4313074, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 41216
       objectReference: {fileID: 0}
     - target: {fileID: 798017885905780314, guid: 879fe33d36cb7e245a995339a4313074, type: 3}
       propertyPath: Rigidbody
