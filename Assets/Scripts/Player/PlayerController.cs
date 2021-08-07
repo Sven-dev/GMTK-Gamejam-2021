@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Mover Mover;
     [SerializeField] private Jumper Jumper;
     [SerializeField] private Interacter Interacter;
-    [SerializeField] private Climber Climber;
+    [Space]
     [SerializeField] private CameraController CameraController;
     [Space][Range(0.00f, 1.00f)]
     [SerializeField] private float Deadzone = 0.25f;
@@ -65,10 +65,6 @@ public class PlayerController : MonoBehaviour
                 Interact(input);
                 break;
 
-            case ControlState.Climbing:
-                Climb(input);
-                break;
-
             default:
                 throw new System.NotImplementedException("State " + State + " is not implemented");
         }
@@ -106,21 +102,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Send the input to the climber
-    /// </summary>
-    private void Climb(Vector2 input)
-    {
-        if (input.sqrMagnitude > Deadzone)
-        {
-            Climber.Input = input;
-        }
-        else
-        {
-            Climber.Input = Vector2.zero;
-        }
-    }
-
     private void Jump()
     {
         if (State == ControlState.Moving)
@@ -147,24 +128,10 @@ public class PlayerController : MonoBehaviour
             Interacter.StopInteract();
         }
     }
-
-    public void StartClimb()
-    {
-        Mover.Input = Vector3.zero;
-        State = ControlState.Climbing;
-        Climber.StartClimb(Input.Player.Move.ReadValue<Vector2>());
-    }
-
-    public void StopClimb()
-    {
-        Climber.StopClimb();
-        State = ControlState.Moving;
-    }
 }
 
 public enum ControlState
 {
     Moving,
-    Interacting,
-    Climbing
+    Interacting
 }
