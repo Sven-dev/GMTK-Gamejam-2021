@@ -17,12 +17,12 @@ TagManager:
   - Ground
   - Interactable
   - HealthManager
-  - Climbable
+  - 
   - Conveyorbelt
   - MovingPlatform
   - Teleporter
   - FallingPlatform
-  - 
+  - Enemy
   - 
   - 
   - 
