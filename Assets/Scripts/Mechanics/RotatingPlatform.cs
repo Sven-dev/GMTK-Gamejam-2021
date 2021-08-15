@@ -38,6 +38,9 @@ public class RotatingPlatform : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        other.transform.parent = null;
+        if (other.transform.parent == transform)
+        {
+            other.transform.parent = null;
+        }
     }
 }
