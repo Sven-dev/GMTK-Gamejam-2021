@@ -8,6 +8,8 @@ public class Jumper : MonoBehaviour
     [SerializeField] private float JumpStrength = 3.5f;
     [SerializeField] private Rigidbody Rigidbody;
 
+    public bool grounded;
+
     public void Jump()
     {
         if (Grounded())
@@ -19,6 +21,7 @@ public class Jumper : MonoBehaviour
     private bool Grounded()
     {
         Vector3 halfExtend = new Vector3(0.00f, 0.1f, 0.00f);
+        grounded = Physics.CheckBox(transform.position, halfExtend, transform.rotation, groundMask);
         return Physics.CheckBox(transform.position, halfExtend, transform.rotation, groundMask);
     }
 }
