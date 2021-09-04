@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Set events for controller inputs
     /// </summary>
-    void Start()
+    private void Start()
     {
         Input.Enable();
         if (Input != null)
@@ -68,6 +68,16 @@ public class PlayerController : MonoBehaviour
             default:
                 throw new System.NotImplementedException("State " + State + " is not implemented");
         }
+    }
+
+    public void EnableControls()
+    {
+        Input.Enable();
+    }
+
+    public void DisableControls()
+    {
+        Input.Disable();
     }
 
     /// <summary>

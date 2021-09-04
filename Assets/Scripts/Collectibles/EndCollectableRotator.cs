@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class EndCollectableRotator : MonoBehaviour
 {
+    [SerializeField] private Collider Collider;
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(_Rotate());
         StartCoroutine(_Bob());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Collider.enabled = false;
+
+        PlayerController.Instance.DisableControls();
+        LevelManager.Instance.LoadLevel(1, Transition.Crossfade);
     }
 
     private IEnumerator _Rotate()
