@@ -63,6 +63,7 @@ public class Valve : Interactable
             yield return new WaitForFixedUpdate();
         }
 
+        Rotatable.eulerAngles = Vector3.Lerp(start, end, 1);
     }
 }
 

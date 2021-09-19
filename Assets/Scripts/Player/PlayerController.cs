@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         Input = new Input();
         if (Instance == null) Instance = this;
-        else Destroy(this);
+        else Destroy(gameObject);
     }
 
     /// <summary>

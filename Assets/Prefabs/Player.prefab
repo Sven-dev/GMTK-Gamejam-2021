@@ -88,7 +88,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 6279497426700541265}
   - component: {fileID: 9165212478988852982}
   - component: {fileID: 500777943767724775}
-  - component: {fileID: 3671402354130183852}
+  - component: {fileID: 237946227301060857}
   - component: {fileID: 5780201042583605273}
   - component: {fileID: 6739735893758297256}
   m_Layer: 7
@@ -123,7 +123,7 @@ Transform:
   m_GameObject: {fileID: 1862749037913577547}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1355654797469094972}
   - {fileID: 5433141804889672047}
@@ -180,11 +180,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundMask:
     serializedVersion: 2
-    m_Bits: 256
-  JumpStrength: 4
+    m_Bits: 41216
+  JumpStrength: 8
   Rigidbody: {fileID: 5780201042583605273}
---- !u!65 &3671402354130183852
-BoxCollider:
+  grounded: 0
+--- !u!136 &237946227301060857
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -193,9 +194,10 @@ BoxCollider:
   m_Material: {fileID: 13400000, guid: a73652867e22b514cbd4ddcaf9f07b20, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.35200906, z: 0.1}
-  m_Center: {x: 0, y: 0.12600452, z: 0}
+  m_Radius: 0.1
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.18, z: 0}
 --- !u!54 &5780201042583605273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -331,7 +333,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
@@ -536,7 +538,7 @@ PrefabInstance:
     - target: {fileID: 6164996480583612547, guid: 28cba742d2ad6b443ae2b0a27ead6968, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f15f607d1891e01418bd181e42df6832, type: 2}
+      objectReference: {fileID: 2100000, guid: 8b64b9ba882d75645b14c2680ee6ad13, type: 2}
     - target: {fileID: 6164996480583612547, guid: 28cba742d2ad6b443ae2b0a27ead6968, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -544,7 +546,7 @@ PrefabInstance:
     - target: {fileID: 6164996480583612547, guid: 28cba742d2ad6b443ae2b0a27ead6968, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: f15f607d1891e01418bd181e42df6832, type: 2}
+      objectReference: {fileID: 2100000, guid: 8e3959146f0759146a43e7149bfa466c, type: 2}
     - target: {fileID: 7668100837431030959, guid: 28cba742d2ad6b443ae2b0a27ead6968, type: 3}
       propertyPath: m_Layer
       value: 7
