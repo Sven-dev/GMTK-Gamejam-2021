@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EndCollectableRotator : MonoBehaviour
 {
+    [SerializeField] private int LevelIndex;
     [SerializeField] private Collider Collider;
 
     // Start is called before the first frame update
@@ -18,7 +19,7 @@ public class EndCollectableRotator : MonoBehaviour
         Collider.enabled = false;
 
         PlayerController.Instance.DisableControls();
-        LevelManager.Instance.LoadLevel(1, Transition.Crossfade);
+        LevelManager.Instance.LoadLevel(LevelIndex, Transition.Crossfade);
     }
 
     private IEnumerator _Rotate()
